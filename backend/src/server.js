@@ -19,6 +19,10 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+// Access routes
+const routes = require('./routes');
+app.use(routes);
+
 // express.json() returns a middleware that pass json as a response
 app.use(express.json());
 
