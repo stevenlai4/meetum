@@ -19,6 +19,9 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+// express.json() returns a middleware that pass json as a response
+app.use(express.json());
+
 // Access routes
 const routes = require('./routes');
 app.use(routes);
@@ -36,9 +39,6 @@ try {
 } catch (error) {
     console.error(error);
 }
-
-// express.json() returns a middleware that pass json as a response
-app.use(express.json());
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`);
