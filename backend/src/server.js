@@ -23,6 +23,20 @@ if (process.env.NODE_ENV !== 'production') {
 const routes = require('./routes');
 app.use(routes);
 
+// Setup mongoose
+const mongoose = require('mongoose');
+
+try {
+    mongoose.connect(process.env.MONGO_DB_CONNECTION, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+
+    console.log('MongoDB connected');
+} catch (error) {
+    console.error(error);
+}
+
 // express.json() returns a middleware that pass json as a response
 app.use(express.json());
 
