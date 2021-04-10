@@ -9,9 +9,7 @@ export default function GuardedRoute({
     return (
         <Route path={path}>
             {isAuthenticated ? (
-                <UserProvider isAuthenticated={isAuthenticated}>
-                    <Component />
-                </UserProvider>
+                <Component isAuthenticated={isAuthenticated} />
             ) : (
                 <Redirect to="/" />
             )}
