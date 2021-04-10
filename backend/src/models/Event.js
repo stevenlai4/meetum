@@ -5,7 +5,6 @@ const EventSchema = new mongoose.Schema({
     date: Date,
     description: String,
     location: { type: String, default: '' },
-    //store cognito id into users array
     users: [
         {
             cognito_id: String,

@@ -15,14 +15,14 @@ module.exports = {
         }
 
         try {
-            //Find user if exist
+            //Check if user exist
             const user = await User.findOne({ cognito_id });
             if (!user) {
                 res.send({ message: 'User Not Found' });
                 return;
             }
 
-            // Create a new event to mongodb
+            //Create a new event to mongodb
             const event = await Event.create({
                 name,
                 date,
