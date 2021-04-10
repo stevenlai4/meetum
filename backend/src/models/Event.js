@@ -2,16 +2,17 @@ const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
     name: String,
-    eventDate: Date,
+    date: Date,
     description: String,
-    address: String,
-    participants: [
+    location: { type: String, default: '' },
+    //store cognito id into users array
+    users: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
+            cognito_id: String,
+            address: String,
         },
     ],
-    eventCreatedAt: {
+    createdOn: {
         type: Date,
         default: Date.now,
     },
