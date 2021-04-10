@@ -28,7 +28,7 @@ export async function getUserInfo() {
 //register user from cognito
 export async function cognitoRegister({ email, password, name }) {
     try {
-        const { userSub } = await Auth.signUp({
+        const userSub = await Auth.signUp({
             username: email,
             password: password,
             attributes: {
@@ -36,7 +36,6 @@ export async function cognitoRegister({ email, password, name }) {
                 name: name,
             },
         });
-
         return userSub;
     } catch (error) {
         throw error;
@@ -46,10 +45,11 @@ export async function cognitoRegister({ email, password, name }) {
 //Login user from cognito
 export async function cognitoLogin({ email, password }) {
     try {
-        await Auth.signIn({
+        const user = await Auth.signIn({
             username: email,
             password: password,
         });
+        return user;
     } catch (error) {
         throw error;
     }

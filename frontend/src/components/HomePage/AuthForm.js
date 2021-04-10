@@ -58,14 +58,15 @@ export default function AuthForm({ setIsAuthenticated }) {
         event.preventDefault();
         try {
             // cognito login api
-            await cognitoLogin({
+            const response = await cognitoLogin({
                 email: user.email,
                 password: user.password,
             });
-
-            console.log('Successfully login');
-            setIsAuthenticated(true);
-            history.push('./dashboard');
+            if (response) {
+                alert('Successfully login');
+                setIsAuthenticated(true);
+                history.push('./dashboard');
+            }
         } catch (error) {
             console.log(error);
         }
@@ -81,8 +82,10 @@ export default function AuthForm({ setIsAuthenticated }) {
                 email: user.email,
                 password: user.password,
             });
-            console.log('Successfully Register');
-            alert('please confirm email');
+            if (response) {
+                console.log('Successfully Register');
+                alert('please confirm email');
+            }
         } catch (error) {
             console.log(error);
         }
