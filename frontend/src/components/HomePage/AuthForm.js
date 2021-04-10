@@ -7,13 +7,10 @@ import {
     Tab,
     CardContent,
     CardHeader,
-    Typography,
     Input,
     Button,
-    IconButton,
     FormControl,
 } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,9 +47,8 @@ export default function AuthForm({ login }) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
-    const submit = (event) => {
+    const submitForm = (event) => {
         event.preventDefault();
-        let result;
 
         if (tabValue === 0) {
             login({ type: 'login', username, password });
@@ -62,90 +58,101 @@ export default function AuthForm({ login }) {
     };
 
     return (
-        <Card className={classes.root}>
-            <CardHeader
-                className={classes.header}
-                title={tabValue === 0 ? 'Login' : 'Sign Up'}
-            />
-            <CardContent>
-                <Tabs
-                    variant="fullWidth"
-                    className={classes.tabs}
-                    value={tabValue}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    onChange={handleTabChange}
-                >
-                    <Tab label="LOGIN" />
-                    <Tab label="SIGN UP" />
-                </Tabs>
-            </CardContent>
-            <CardContent>
-                <form onSubmit={submit}>
-                    {tabValue === 0 ? (
-                        <Typography>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    onChange={(event) =>
-                                        setUseName(event.target.value)
-                                    }
-                                    className={classes.input}
-                                    placeholder="Username"
-                                ></Input>
-                                <Input
-                                    onChange={(event) =>
-                                        setPassword(event.target.value)
-                                    }
-                                    className={classes.input}
-                                    type="password"
-                                    placeholder="Password"
-                                />
+        <div className={classes.root}>
+            <Card>
+                <CardHeader
+                    className={classes.header}
+                    title={tabValue === 0 ? 'Login' : 'Sign Up'}
+                />
+                <CardContent>
+                    <Tabs
+                        variant="fullWidth"
+                        className={classes.tabs}
+                        value={tabValue}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        onChange={handleTabChange}
+                    >
+                        <Tab label="LOGIN" />
+                        <Tab label="SIGN UP" />
+                    </Tabs>
+                </CardContent>
+                <CardContent>
+                    <form onSubmit={submitForm}>
+                        {tabValue === 0 ? (
+                            <div>
+                                <FormControl fullWidth={true}>
+                                    <Input
+                                        onChange={(event) =>
+                                            setUseName(event.target.value)
+                                        }
+                                        className={classes.input}
+                                        placeholder="Username"
+                                        autoComplete="on"
+                                    ></Input>
+                                </FormControl>
+                                <FormControl fullWidth={true}>
+                                    <Input
+                                        onChange={(event) =>
+                                            setPassword(event.target.value)
+                                        }
+                                        className={classes.input}
+                                        type="password"
+                                        placeholder="Password"
+                                        autoComplete="on"
+                                    />
+                                </FormControl>
                                 <Button
                                     type="submit"
                                     className={classes.postButton}
                                 >
                                     SUMBIT
                                 </Button>
-                            </FormControl>
-                        </Typography>
-                    ) : (
-                        <Typography>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    onChange={(event) =>
-                                        setEmail(event.target.value)
-                                    }
-                                    className={classes.input}
-                                    placeholder="Email"
-                                    type="email"
-                                ></Input>
-                                <Input
-                                    onChange={(event) =>
-                                        setUseName(event.target.value)
-                                    }
-                                    className={classes.input}
-                                    placeholder="Username"
-                                ></Input>
-                                <Input
-                                    onChange={(event) =>
-                                        setPassword(event.target.value)
-                                    }
-                                    className={classes.input}
-                                    type="password"
-                                    placeholder="Password"
-                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <FormControl fullWidth={true}>
+                                    <Input
+                                        onChange={(event) =>
+                                            setEmail(event.target.value)
+                                        }
+                                        className={classes.input}
+                                        placeholder="Email"
+                                        type="email"
+                                    ></Input>
+                                </FormControl>
+                                <FormControl fullWidth={true}>
+                                    <Input
+                                        onChange={(event) =>
+                                            setUseName(event.target.value)
+                                        }
+                                        className={classes.input}
+                                        placeholder="Username"
+                                        autoComplete="on"
+                                    ></Input>
+                                </FormControl>
+                                <FormControl fullWidth={true}>
+                                    <Input
+                                        onChange={(event) =>
+                                            setPassword(event.target.value)
+                                        }
+                                        className={classes.input}
+                                        type="password"
+                                        placeholder="Password"
+                                        autoComplete="on"
+                                    />
+                                </FormControl>
                                 <Button
                                     type="submit"
                                     className={classes.postButton}
                                 >
                                     SUMBIT
                                 </Button>
-                                {/* <Button component={Link} exact to={'/'} onClick={() => onSubmitSignUp({email: email, username: username, password:password,type: "signUp"})} className={classes.postButton} value="post">SUMBIT</Button> */}
-                            </FormControl>
-                        </Typography>
-                    )}
-                </form>
-            </CardContent>
-        </Card>
+                            </div>
+                        )}
+                    </form>
+                </CardContent>
+            </Card>
+        </div>
     );
 }
