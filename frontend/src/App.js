@@ -31,6 +31,7 @@ export default function App() {
         <Router>
             <Switch>
                 <Route exact path="/">
+                    {/* Redirect to dashboard if user has already login (isAithorized) otherwise redirect to home page to login*/}
                     {localStorage.getItem('isAuthorized') ? (
                         <Redirect from="/" to="/dashboard" />
                     ) : (
