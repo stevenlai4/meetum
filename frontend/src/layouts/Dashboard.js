@@ -1,11 +1,18 @@
 import React from 'react';
-import Logout from '../components/DashboardPage/Logout';
+import { useHistory } from 'react-router-dom';
+import { Link } from '@material-ui/core';
 
 export default function Dashboard({ setIsAuthenticated }) {
+    const history = useHistory();
+    const signOut = () => {
+        setIsAuthenticated(false);
+        localStorage.clear();
+        history.push('/');
+    };
     return (
         <>
             <h2>im dashboard!</h2>
-            <Logout setIsAuthenticated={setIsAuthenticated} />
+            <Link onClick={signOut}>Sign Out</Link>
         </>
     );
 }
