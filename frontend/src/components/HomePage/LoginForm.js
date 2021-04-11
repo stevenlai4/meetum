@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Input, Button, FormControl } from '@material-ui/core';
+import { Button, FormControl } from '@material-ui/core';
 import { cognitoLogin } from '../../userAuth';
 import { useHistory } from 'react-router-dom';
 
@@ -59,7 +59,11 @@ export default function LoginForm({ setUser, user, setIsAuthenticated }) {
                 />
             </FormControl>
             <div className={classes.button}>
-                <Button type="submit" className={classes.submitButton}>
+                <Button
+                    type="submit"
+                    variant="outlined"
+                    className={classes.submitButton}
+                >
                     Submit
                 </Button>
             </div>
@@ -69,8 +73,8 @@ export default function LoginForm({ setUser, user, setIsAuthenticated }) {
 
 const useStyles = makeStyles((theme) => ({
     input: {
-        width: '70%',
-        margin: '4% auto 4% auto',
+        width: '60%',
+        margin: '3% auto',
         padding: '3%',
         // borderRadius: '5px',
         // borderColor: 'gray',
@@ -80,9 +84,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: '2%',
+        zIndex: '100',
     },
     submitButton: {
-        color: '#3f51b5',
+        color: '#FFF',
         fontWeight: 'bold',
+        borderRadius: '20px',
+        fontSize: '10px',
     },
 }));

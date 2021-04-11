@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Input, Button, FormControl } from '@material-ui/core';
+import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
 
 export default function RegisterForm({ user, setUser }) {
@@ -29,7 +29,7 @@ export default function RegisterForm({ user, setUser }) {
     return (
         <form onSubmit={handleRegister}>
             <FormControl fullWidth={true}>
-                <Input
+                <input
                     className={classes.input}
                     placeholder="Name"
                     type="text"
@@ -41,10 +41,10 @@ export default function RegisterForm({ user, setUser }) {
                             name: e.target.value,
                         })
                     }
-                ></Input>
+                />
             </FormControl>
             <FormControl fullWidth={true}>
-                <Input
+                <input
                     className={classes.input}
                     placeholder="Email"
                     type="email"
@@ -56,10 +56,10 @@ export default function RegisterForm({ user, setUser }) {
                             email: e.target.value,
                         })
                     }
-                ></Input>
+                />
             </FormControl>
             <FormControl fullWidth={true}>
-                <Input
+                <input
                     className={classes.input}
                     placeholder="Password"
                     type="password"
@@ -74,7 +74,7 @@ export default function RegisterForm({ user, setUser }) {
                 />
             </FormControl>
             <FormControl fullWidth={true}>
-                <Input
+                <input
                     className={classes.input}
                     placeholder="Confirm Password"
                     type="password"
@@ -89,7 +89,11 @@ export default function RegisterForm({ user, setUser }) {
                 />
             </FormControl>
             <div className={classes.button}>
-                <Button type="submit" className={classes.submitButton}>
+                <Button
+                    type="submit"
+                    variant="outlined"
+                    className={classes.submitButton}
+                >
                     Submit
                 </Button>
             </div>
@@ -99,8 +103,11 @@ export default function RegisterForm({ user, setUser }) {
 
 const useStyles = makeStyles((theme) => ({
     input: {
-        width: '80%',
-        margin: '6% auto 6% auto',
+        width: '60%',
+        margin: '3% auto',
+        padding: '3%',
+        // borderRadius: '5px',
+        // borderColor: 'gray',
     },
     button: {
         display: 'flex',
@@ -108,7 +115,9 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     submitButton: {
-        color: '#3f51b5',
+        color: '#FFF',
         fontWeight: 'bold',
+        borderRadius: '20px',
+        fontSize: '10px',
     },
 }));

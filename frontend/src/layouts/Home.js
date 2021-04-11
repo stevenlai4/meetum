@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
-import { Card, Tabs, Tab, CardContent } from '@material-ui/core';
+import { Tabs, Tab } from '@material-ui/core';
 
 export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
@@ -24,39 +24,35 @@ export default function Home({ setIsAuthenticated }) {
         <div className={classes.root}>
             {/* ///////////////////////////////login & register box/////////////////////////////////// */}
             <div className={classes.card}>
-                <Card>
-                    <CardContent style={{}}>
-                        {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
-                        <Tabs
-                            variant="fullWidth"
-                            className={classes.tabs}
-                            value={tabValue}
-                            indicatorColor="primary"
-                            // textColor="primary"
-                            onChange={handleTabChange}
-                        >
-                            <Tab label="LOGIN" />
-                            <Tab label="SIGN UP" />
-                        </Tabs>
-                    </CardContent>
-                    <CardContent style={{}}>
-                        {tabValue === 0 ? (
-                            /////////////////////////////// Login /////////////////////////////////////////////
-                            <LoginForm
-                                user={user}
-                                setUser={setUser}
-                                setIsAuthenticated={setIsAuthenticated}
-                            />
-                        ) : (
-                            /////////////////////////////// Register ////////////////////////////////////////////
-                            <RegisterForm
-                                user={user}
-                                setUser={setUser}
-                                setIsAuthenticated={setIsAuthenticated}
-                            />
-                        )}
-                    </CardContent>
-                </Card>
+                {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
+
+                <Tabs
+                    variant="fullWidth"
+                    className={classes.tabs}
+                    value={tabValue}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={handleTabChange}
+                >
+                    <Tab label="LOGIN" style={{ color: 'white' }} />
+                    <Tab label="SIGN UP" style={{ color: 'white' }} />
+                </Tabs>
+
+                {tabValue === 0 ? (
+                    /////////////////////////////// Login /////////////////////////////////////////////
+                    <LoginForm
+                        user={user}
+                        setUser={setUser}
+                        setIsAuthenticated={setIsAuthenticated}
+                    />
+                ) : (
+                    /////////////////////////////// Register ////////////////////////////////////////////
+                    <RegisterForm
+                        user={user}
+                        setUser={setUser}
+                        setIsAuthenticated={setIsAuthenticated}
+                    />
+                )}
             </div>
         </div>
     );
@@ -70,9 +66,13 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     card: {
+        borderRadius: '10px',
         padding: 10,
-        margin: 'auto',
         width: '40%',
-        // filter: blur('10px'),
+        // // zIndex: 1,
+        // WebkitFilter: `blur(1px)   `,
+    },
+    tabs: {
+        marginBottom: '6%',
     },
 }));
