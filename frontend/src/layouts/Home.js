@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
-import { Card, Tabs, Tab, CardContent, CardHeader } from '@material-ui/core';
+import { Card, Tabs, Tab, CardContent } from '@material-ui/core';
 
 export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
@@ -22,55 +22,60 @@ export default function Home({ setIsAuthenticated }) {
 
     return (
         <div className={classes.root}>
-            <Card>
-                <CardHeader
-                    className={classes.header}
-                    title={tabValue === 0 ? 'Login' : 'Sign Up'}
-                />
-                <CardContent>
-                    {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
-                    <Tabs
-                        variant="fullWidth"
-                        className={classes.tabs}
-                        value={tabValue}
-                        indicatorColor="primary"
-                        textColor="primary"
-                        onChange={handleTabChange}
-                    >
-                        <Tab label="LOGIN" />
-                        <Tab label="SIGN UP" />
-                    </Tabs>
-                </CardContent>
-                <CardContent>
-                    {tabValue === 0 ? (
-                        /////////////////////////////// Login /////////////////////////////////////////////
-                        <LoginForm
-                            user={user}
-                            setUser={setUser}
-                            setIsAuthenticated={setIsAuthenticated}
-                        />
-                    ) : (
-                        /////////////////////////////// Register ////////////////////////////////////////////
-                        <RegisterForm
-                            user={user}
-                            setUser={setUser}
-                            setIsAuthenticated={setIsAuthenticated}
-                        />
-                    )}
-                </CardContent>
-            </Card>
+            <div className={classes.body}>
+                {/* ///////////////////////////////login & register box/////////////////////////////////// */}
+                <div className={classes.card}>
+                    <Card>
+                        <CardContent>
+                            {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
+                            <Tabs
+                                variant="fullWidth"
+                                className={classes.tabs}
+                                value={tabValue}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                onChange={handleTabChange}
+                            >
+                                <Tab label="LOGIN" />
+                                <Tab label="SIGN UP" />
+                            </Tabs>
+                        </CardContent>
+                        <CardContent>
+                            {tabValue === 0 ? (
+                                /////////////////////////////// Login /////////////////////////////////////////////
+                                <LoginForm
+                                    user={user}
+                                    setUser={setUser}
+                                    setIsAuthenticated={setIsAuthenticated}
+                                />
+                            ) : (
+                                /////////////////////////////// Register ////////////////////////////////////////////
+                                <RegisterForm
+                                    user={user}
+                                    setUser={setUser}
+                                    setIsAuthenticated={setIsAuthenticated}
+                                />
+                            )}
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
         </div>
     );
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+    },
+    card: {
         maxWidth: 600,
         padding: 10,
         margin: 'auto',
-    },
-    header: {
-        textAlign: 'center',
+        width: '80%',
     },
     tabs: {
         margin: 'auto',

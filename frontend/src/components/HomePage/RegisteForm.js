@@ -88,9 +88,11 @@ export default function RegisterForm({ user, setUser }) {
                     }
                 />
             </FormControl>
-            <Button type="submit" className={classes.postButton}>
-                Submit
-            </Button>
+            <div className={classes.button}>
+                <Button type="submit" className={classes.submitButton}>
+                    Submit
+                </Button>
+            </div>
         </form>
     );
 }
@@ -98,9 +100,14 @@ export default function RegisterForm({ user, setUser }) {
 const useStyles = makeStyles((theme) => ({
     input: {
         width: '80%',
-        margin: '30px auto 30px auto',
+        margin: '6% auto 6% auto',
     },
-    postButton: {
+    button: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    submitButton: {
         color: '#3f51b5',
         fontWeight: 'bold',
     },
