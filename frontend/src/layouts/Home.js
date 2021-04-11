@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
 import { Tabs, Tab } from '@material-ui/core';
+import logo from '../images/meetum-logo.png';
 
 export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
@@ -22,16 +23,20 @@ export default function Home({ setIsAuthenticated }) {
 
     return (
         <div className={classes.root}>
+            <img src={logo} alt="Logo" className={classes.logo} />;
             {/* ///////////////////////////////login & register box/////////////////////////////////// */}
             <div className={classes.card}>
                 {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
 
                 <Tabs
                     variant="fullWidth"
+                    classes={{
+                        indicator: classes.indicator,
+                    }}
                     className={classes.tabs}
                     value={tabValue}
                     indicatorColor="primary"
-                    textColor="primary"
+                    textColor="inherit"
                     onChange={handleTabChange}
                 >
                     <Tab label="LOGIN" style={{ color: 'white' }} />
@@ -65,6 +70,12 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         height: '100vh',
     },
+    logo: {
+        width: '200px',
+        position: 'absolute',
+        left: 10,
+        top: 10,
+    },
     card: {
         borderRadius: '10px',
         padding: 10,
@@ -74,5 +85,11 @@ const useStyles = makeStyles((theme) => ({
     },
     tabs: {
         marginBottom: '6%',
+        indicator: {
+            backgroundColor: 'white',
+        },
+    },
+    indicator: {
+        backgroundColor: 'white',
     },
 }));
