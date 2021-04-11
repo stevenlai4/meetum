@@ -55,7 +55,8 @@ export async function cognitoLogin({ email, password }) {
     }
 }
 
-//refresh cognito AuthToken
+//Auth.currentSession() to get current valid token or get the new if current has expired
+//Keep updating your tokens on some interval
 export async function refreshAuthToken(setIsAuthenticated) {
     try {
         const cognitoUser = await Auth.currentAuthenticatedUser();

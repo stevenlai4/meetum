@@ -13,6 +13,7 @@ export default function App() {
         false
     );
 
+    //Refresh Cognito Auth Token
     useEffect(() => {
         (async () => {
             try {
