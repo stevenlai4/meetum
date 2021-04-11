@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input, Button, FormControl } from '@material-ui/core';
 
-export default function LoginForm({ setUser, user }) {
+export default function RegisterForm({ user, setUser }) {
     const classes = useStyles();
 
     return (
@@ -10,7 +10,24 @@ export default function LoginForm({ setUser, user }) {
             <FormControl fullWidth={true}>
                 <Input
                     className={classes.input}
+                    placeholder="Name"
+                    type="text"
+                    value={user.name}
+                    autoComplete="on"
+                    onChange={(e) =>
+                        setUser({
+                            ...user,
+                            name: e.target.value,
+                        })
+                    }
+                ></Input>
+            </FormControl>
+            <FormControl fullWidth={true}>
+                <Input
+                    className={classes.input}
                     placeholder="Email"
+                    type="email"
+                    value={user.email}
                     autoComplete="on"
                     onChange={(e) =>
                         setUser({
@@ -18,14 +35,14 @@ export default function LoginForm({ setUser, user }) {
                             email: e.target.value,
                         })
                     }
-                    value={user.email}
                 ></Input>
             </FormControl>
             <FormControl fullWidth={true}>
                 <Input
                     className={classes.input}
-                    type="password"
                     placeholder="Password"
+                    type="password"
+                    value={user.password}
                     autoComplete="on"
                     onChange={(e) =>
                         setUser({
@@ -33,7 +50,21 @@ export default function LoginForm({ setUser, user }) {
                             password: e.target.value,
                         })
                     }
-                    value={user.password}
+                />
+            </FormControl>
+            <FormControl fullWidth={true}>
+                <Input
+                    className={classes.input}
+                    placeholder="Confirm Password"
+                    type="password"
+                    value={user.confirmPassword}
+                    autoComplete="on"
+                    onChange={(e) =>
+                        setUser({
+                            ...user,
+                            confirmPassword: e.target.value,
+                        })
+                    }
                 />
             </FormControl>
             <Button type="submit" className={classes.postButton}>

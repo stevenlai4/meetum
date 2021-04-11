@@ -1,42 +1,12 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Auth } from 'aws-amplify';
+import LoginForm from '../components/HomePage/LoginForm';
+import RegisterForm from '../components/HomePage/RegisteForm';
 import { useHistory } from 'react-router-dom';
 import { cognitoRegister, cognitoLogin } from '../userAuth';
-import {
-    Card,
-    Tabs,
-    Tab,
-    CardContent,
-    CardHeader,
-    Input,
-    Button,
-    FormControl,
-} from '@material-ui/core';
+import { Card, Tabs, Tab, CardContent, CardHeader } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 600,
-        padding: 10,
-        margin: 'auto',
-    },
-    header: {
-        textAlign: 'center',
-    },
-    tabs: {
-        margin: 'auto',
-    },
-    input: {
-        width: '80%',
-        margin: '30px auto 30px auto',
-    },
-    postButton: {
-        color: '#3f51b5',
-        fontWeight: 'bold',
-    },
-}));
-
-export default function LoginForm({ setIsAuthenticated }) {
+export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
 
     const [tabValue, setTabValue] = useState(0);
@@ -114,113 +84,13 @@ export default function LoginForm({ setIsAuthenticated }) {
                 <CardContent>
                     {tabValue === 0 ? (
                         ////////////////////////////////////////Login/////////////////////////////////////////
-
                         <form onSubmit={handleLogin}>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    className={classes.input}
-                                    placeholder="Email"
-                                    autoComplete="on"
-                                    onChange={(e) =>
-                                        setUser({
-                                            ...user,
-                                            email: e.target.value,
-                                        })
-                                    }
-                                    value={user.email}
-                                ></Input>
-                            </FormControl>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    className={classes.input}
-                                    type="password"
-                                    placeholder="Password"
-                                    autoComplete="on"
-                                    onChange={(e) =>
-                                        setUser({
-                                            ...user,
-                                            password: e.target.value,
-                                        })
-                                    }
-                                    value={user.password}
-                                />
-                            </FormControl>
-                            <Button
-                                type="submit"
-                                className={classes.postButton}
-                            >
-                                Submit
-                            </Button>
+                            <LoginForm user={user} setUser={setUser} />
                         </form>
                     ) : (
                         ////////////////////////////////////////Register/////////////////////////////////////////
                         <form onSubmit={handleRegister}>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    className={classes.input}
-                                    placeholder="Name"
-                                    type="text"
-                                    value={user.name}
-                                    autoComplete="on"
-                                    onChange={(e) =>
-                                        setUser({
-                                            ...user,
-                                            name: e.target.value,
-                                        })
-                                    }
-                                ></Input>
-                            </FormControl>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    className={classes.input}
-                                    placeholder="Email"
-                                    type="email"
-                                    value={user.email}
-                                    autoComplete="on"
-                                    onChange={(e) =>
-                                        setUser({
-                                            ...user,
-                                            email: e.target.value,
-                                        })
-                                    }
-                                ></Input>
-                            </FormControl>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    className={classes.input}
-                                    placeholder="Password"
-                                    type="password"
-                                    value={user.password}
-                                    autoComplete="on"
-                                    onChange={(e) =>
-                                        setUser({
-                                            ...user,
-                                            password: e.target.value,
-                                        })
-                                    }
-                                />
-                            </FormControl>
-                            <FormControl fullWidth={true}>
-                                <Input
-                                    className={classes.input}
-                                    placeholder="Confirm Password"
-                                    type="password"
-                                    value={user.confirmPassword}
-                                    autoComplete="on"
-                                    onChange={(e) =>
-                                        setUser({
-                                            ...user,
-                                            confirmPassword: e.target.value,
-                                        })
-                                    }
-                                />
-                            </FormControl>
-                            <Button
-                                type="submit"
-                                className={classes.postButton}
-                            >
-                                Submit
-                            </Button>
+                            <RegisterForm user={user} setUser={setUser} />
                         </form>
                     )}
                 </CardContent>
@@ -228,3 +98,17 @@ export default function LoginForm({ setIsAuthenticated }) {
         </div>
     );
 }
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        maxWidth: 600,
+        padding: 10,
+        margin: 'auto',
+    },
+    header: {
+        textAlign: 'center',
+    },
+    tabs: {
+        margin: 'auto',
+    },
+}));
