@@ -30,7 +30,7 @@ export default function LoginForm({ setUser, user, setIsAuthenticated }) {
     return (
         <form onSubmit={handleLogin}>
             <FormControl fullWidth={true}>
-                <Input
+                <input
                     className={classes.input}
                     placeholder="Email"
                     autoComplete="on"
@@ -41,10 +41,10 @@ export default function LoginForm({ setUser, user, setIsAuthenticated }) {
                         })
                     }
                     value={user.email}
-                ></Input>
+                />
             </FormControl>
             <FormControl fullWidth={true}>
-                <Input
+                <input
                     className={classes.input}
                     type="password"
                     placeholder="Password"
@@ -69,13 +69,17 @@ export default function LoginForm({ setUser, user, setIsAuthenticated }) {
 
 const useStyles = makeStyles((theme) => ({
     input: {
-        width: '80%',
-        margin: '6% auto 6% auto',
+        width: '70%',
+        margin: '4% auto 4% auto',
+        padding: '3%',
+        // borderRadius: '5px',
+        // borderColor: 'gray',
     },
     button: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: '2%',
     },
     submitButton: {
         color: '#3f51b5',
