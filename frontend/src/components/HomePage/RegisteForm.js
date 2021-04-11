@@ -1,12 +1,33 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input, Button, FormControl } from '@material-ui/core';
+import { cognitoRegister } from '../../userAuth';
 
 export default function RegisterForm({ user, setUser }) {
     const classes = useStyles();
 
+    //handle register
+    const handleRegister = async (event) => {
+        event.preventDefault();
+
+        try {
+            // cognito register api
+            const response = await cognitoRegister({
+                name: user.name,
+                email: user.email,
+                password: user.password,
+            });
+            if (response) {
+                console.log('Successfully Register');
+                alert('please confirm email');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
-        <>
+        <form onSubmit={handleRegister}>
             <FormControl fullWidth={true}>
                 <Input
                     className={classes.input}
@@ -70,7 +91,7 @@ export default function RegisterForm({ user, setUser }) {
             <Button type="submit" className={classes.postButton}>
                 Submit
             </Button>
-        </>
+        </form>
     );
 }
 

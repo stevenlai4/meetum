@@ -1,12 +1,34 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input, Button, FormControl } from '@material-ui/core';
+import { cognitoLogin } from '../../userAuth';
+import { useHistory } from 'react-router-dom';
 
-export default function LoginForm({ setUser, user }) {
+export default function LoginForm({ setUser, user, setIsAuthenticated }) {
     const classes = useStyles();
+    const history = useHistory();
+
+    //handle login
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        try {
+            // cognito login api
+            const response = await cognitoLogin({
+                email: user.email,
+                password: user.password,
+            });
+            if (response) {
+                alert('Successfully login');
+                setIsAuthenticated(true);
+                history.push('./dashboard');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
-        <>
+        <form onSubmit={handleLogin}>
             <FormControl fullWidth={true}>
                 <Input
                     className={classes.input}
@@ -39,7 +61,7 @@ export default function LoginForm({ setUser, user }) {
             <Button type="submit" className={classes.postButton}>
                 Submit
             </Button>
-        </>
+        </form>
     );
 }
 

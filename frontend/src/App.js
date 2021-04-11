@@ -42,6 +42,7 @@ export default function App() {
                 <GuardedRoute
                     path="/dashboard"
                     isAuthenticated={isAuthenticated}
+                    setIsAuthenticated={setIsAuthenticated}
                     component={Dashboard}
                 />
             </Switch>

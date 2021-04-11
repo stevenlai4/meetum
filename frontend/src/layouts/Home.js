@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
-import { useHistory } from 'react-router-dom';
-import { cognitoRegister, cognitoLogin } from '../userAuth';
 import { Card, Tabs, Tab, CardContent, CardHeader } from '@material-ui/core';
 
 export default function Home({ setIsAuthenticated }) {
@@ -15,53 +13,12 @@ export default function Home({ setIsAuthenticated }) {
         setTabValue(newValue);
     };
 
-    const history = useHistory();
-
     const [user, setUser] = useState({
         name: '',
         email: '',
         password: '',
         confirmPassword: '',
     });
-
-    //handle login
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        try {
-            // cognito login api
-            const response = await cognitoLogin({
-                email: user.email,
-                password: user.password,
-            });
-            if (response) {
-                alert('Successfully login');
-                setIsAuthenticated(true);
-                history.push('./dashboard');
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    //handle register
-    const handleRegister = async (event) => {
-        event.preventDefault();
-
-        try {
-            // cognito register api
-            const response = await cognitoRegister({
-                name: user.name,
-                email: user.email,
-                password: user.password,
-            });
-            if (response) {
-                console.log('Successfully Register');
-                alert('please confirm email');
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     return (
         <div className={classes.root}>
@@ -86,15 +43,19 @@ export default function Home({ setIsAuthenticated }) {
                 </CardContent>
                 <CardContent>
                     {tabValue === 0 ? (
-                        ////////////////////////////////////////Login/////////////////////////////////////////
-                        <form onSubmit={handleLogin}>
-                            <LoginForm user={user} setUser={setUser} />
-                        </form>
+                        /////////////////////////////// Login /////////////////////////////////////////////
+                        <LoginForm
+                            user={user}
+                            setUser={setUser}
+                            setIsAuthenticated={setIsAuthenticated}
+                        />
                     ) : (
-                        ////////////////////////////////////////Register/////////////////////////////////////////
-                        <form onSubmit={handleRegister}>
-                            <RegisterForm user={user} setUser={setUser} />
-                        </form>
+                        /////////////////////////////// Register ////////////////////////////////////////////
+                        <RegisterForm
+                            user={user}
+                            setUser={setUser}
+                            setIsAuthenticated={setIsAuthenticated}
+                        />
                     )}
                 </CardContent>
             </Card>
