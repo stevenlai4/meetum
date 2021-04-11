@@ -24,6 +24,7 @@ export default function Home({ setIsAuthenticated }) {
         confirmPassword: '',
     });
 
+    //handle login
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
@@ -42,6 +43,7 @@ export default function Home({ setIsAuthenticated }) {
         }
     };
 
+    //handle register
     const handleRegister = async (event) => {
         event.preventDefault();
 
@@ -69,6 +71,7 @@ export default function Home({ setIsAuthenticated }) {
                     title={tabValue === 0 ? 'Login' : 'Sign Up'}
                 />
                 <CardContent>
+                    {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
                     <Tabs
                         variant="fullWidth"
                         className={classes.tabs}
