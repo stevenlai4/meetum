@@ -24,10 +24,6 @@ export default function App() {
         })();
     }, []);
 
-    useEffect(() => {
-        console.log(`Authenticated: ${isAuthenticated}`);
-    }, [isAuthenticated]);
-
     return (
         <Router>
             <Switch>
