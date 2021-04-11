@@ -9,6 +9,7 @@ const EventSchema = new mongoose.Schema({
         {
             cognito_id: String,
             address: String,
+            role: String,
         },
     ],
     createdOn: {

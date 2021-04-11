@@ -4,7 +4,7 @@ const User = require('../models/User');
 module.exports = {
     // Create new event (address is from creator)
     async createEvent(req, res) {
-        const { name, date, description, address } = req.body;
+        const { name, date, description, address, role } = req.body;
         const { cognito_id } = req.headers;
 
         // Check if the name and event date are filled
@@ -27,7 +27,7 @@ module.exports = {
                 name,
                 date,
                 description,
-                users: [{ address, cognito_id }],
+                users: [{ address, cognito_id, role }],
             });
 
             //Push event in events array of user (user.events)
