@@ -91,5 +91,6 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         borderRadius: '20px',
         fontSize: '10px',
+        margin: '3%',
     },
 }));

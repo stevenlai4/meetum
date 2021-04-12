@@ -111,6 +111,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        margin: '3%',
     },
     submitButton: {
         color: '#FFF',

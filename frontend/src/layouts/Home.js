@@ -23,7 +23,7 @@ export default function Home({ setIsAuthenticated }) {
 
     return (
         <div className={classes.root}>
-            <img src={logo} alt="Logo" className={classes.logo} />;
+            <img src={logo} alt="Logo" className={classes.logo} />
             {/* ///////////////////////////////login & register box/////////////////////////////////// */}
             <div className={classes.card}>
                 {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
@@ -78,10 +78,15 @@ const useStyles = makeStyles((theme) => ({
     },
     card: {
         borderRadius: '10px',
-        padding: 10,
         width: '40%',
-        // // zIndex: 1,
-        // WebkitFilter: `blur(1px)   `,
+        border: '1px solid white',
+        display: 'inline-block',
+        // // background: '#eff3ff66',
+        // background: '#f0f0f066',
+        // zIndex: 1,
+        // position: 'relative',
+        backdropFilter: `blur(1px)`,
+        backgroundClip: 'border-box',
     },
     tabs: {
         marginBottom: '6%',
