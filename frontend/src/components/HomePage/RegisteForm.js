@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
@@ -11,6 +11,7 @@ export default function RegisterForm({
     setCognitoError,
 }) {
     const classes = useStyles();
+
     //handle register
     const handleRegister = async (event) => {
         event.preventDefault();

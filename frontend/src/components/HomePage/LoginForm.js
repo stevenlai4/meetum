@@ -83,8 +83,6 @@ const useStyles = makeStyles((theme) => ({
         width: '60%',
         margin: '3% auto',
         padding: '3%',
-        // borderRadius: '5px',
-        // borderColor: 'gray',
     },
     button: {
         display: 'flex',
