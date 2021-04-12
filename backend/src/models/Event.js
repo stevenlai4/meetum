@@ -7,7 +7,7 @@ const EventSchema = new mongoose.Schema({
     location: { type: String, default: '' },
     users: [
         {
-            cognito_id: String,
+            _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
             address: String,
             role: String,
         },

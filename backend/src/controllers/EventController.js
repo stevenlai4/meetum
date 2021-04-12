@@ -27,7 +27,7 @@ module.exports = {
                 name,
                 date,
                 description,
-                users: [{ address, cognito_id, role: 'Organiser' }],
+                users: [{ address, _id: user._id, role: 'Organiser' }],
             });
 
             //Push event in events array of user (user.events)
