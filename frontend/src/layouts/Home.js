@@ -9,7 +9,7 @@ import logo from '../images/meetum-logo.png';
 export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
     const [errorMsgs, setErrorMsgs] = useState([]);
-    const [cognitoError, setCognitoError] = useState('');
+    const [cognitoLoginError, setCognitoLoginError] = useState('');
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -91,7 +91,7 @@ export default function Home({ setIsAuthenticated }) {
                         setIsAuthenticated={setIsAuthenticated}
                         handleErrors={handleErrors}
                         setErrorMsgs={setErrorMsgs}
-                        setCognitoError={setCognitoError}
+                        setCognitoLoginError={setCognitoLoginError}
                     />
                 ) : (
                     /////////////////////////////// Register ////////////////////////////////////////////
@@ -102,7 +102,6 @@ export default function Home({ setIsAuthenticated }) {
                         handleErrors={handleErrors}
                         errorMsgs={errorMsgs}
                         setErrorMsgs={setErrorMsgs}
-                        setCognitoError={setCognitoError}
                     />
                 )}
             </div>
@@ -117,9 +116,9 @@ export default function Home({ setIsAuthenticated }) {
                         {errorMsg}
                     </Alert>
                 ))}
-                {cognitoError ? (
+                {cognitoLoginError ? (
                     <Alert className={classes.alert} severity="error">
-                        {cognitoError}
+                        {cognitoLoginError}
                     </Alert>
                 ) : null}
             </div>

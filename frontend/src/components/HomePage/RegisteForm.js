@@ -8,7 +8,6 @@ export default function RegisterForm({
     setUser,
     handleErrors,
     setErrorMsgs,
-    setCognitoError,
 }) {
     const classes = useStyles();
 
@@ -36,7 +35,7 @@ export default function RegisterForm({
                 alert('please confirm email');
             }
         } catch (error) {
-            setCognitoError(error.message);
+            setErrorMsgs([error.message]);
             console.log(error);
         }
     };
