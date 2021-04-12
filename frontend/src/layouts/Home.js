@@ -134,8 +134,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         height: '100vh',
         flexDirection: 'column',
-        height: '100hv',
-        margin: '5%',
+        // margin: '1%',
     },
     logo: {
         width: '200px',
