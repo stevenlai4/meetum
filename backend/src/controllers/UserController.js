@@ -1,10 +1,21 @@
 const User = require('../models/User');
+const jwt_decode = require('jwt-decode');
 
 module.exports = {
     // Register a new user
     async registerUser(req, res) {
         const { address } = req.body;
-        const { username, cognito_id } = req.headers;
+        const { authorization } = req.headers;
+        let userAuth = {};
+
+        // Decode the Authorization JWT
+        if (authorization) {
+            userAuth = jwt_decode(authorization);
+        } else {
+            return res.status(400).json({
+                errMessage: 'Invalid token',
+            });
+        }
 
         // Check if the address input is filled or the default
         // checkout is checked
@@ -15,13 +26,15 @@ module.exports = {
         }
 
         try {
-            const existentUser = await User.findOne({ cognito_id });
+            const existentUser = await User.findOne({
+                cognito_id: userAuth.sub,
+            });
 
             if (!existentUser) {
                 // Create a new user to mongodb
                 await User.create({
-                    cognito_id,
-                    username,
+                    cognito_id: userAuth.sub,
+                    username: userAuth.name,
                     address,
                     events: [],
                 });
