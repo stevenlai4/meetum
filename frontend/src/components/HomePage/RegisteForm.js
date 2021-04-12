@@ -8,7 +8,6 @@ export default function RegisterForm({
     setUser,
     handleErrors,
     setErrorMsgs,
-    setOpen,
 }) {
     const classes = useStyles();
 
@@ -38,7 +37,6 @@ export default function RegisterForm({
             }
         } catch (error) {
             setErrorMsgs([error.message]);
-            setOpen(true);
             console.log(error);
         }
     };
@@ -123,6 +121,11 @@ const useStyles = makeStyles((theme) => ({
         width: '60%',
         margin: '3% auto',
         padding: '3%',
+        border: 'none',
+        borderRadius: '10px',
+        '&:focus': {
+            outline: 'none',
+        },
     },
     button: {
         display: 'flex',
@@ -135,5 +138,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         borderRadius: '20px',
         fontSize: '10px',
+        border: 'none',
+        background: '#f0f0f066',
     },
 }));

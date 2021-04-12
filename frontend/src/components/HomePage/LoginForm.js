@@ -84,13 +84,17 @@ const useStyles = makeStyles((theme) => ({
         width: '60%',
         margin: '3% auto',
         padding: '3%',
+        border: 'none',
+        borderRadius: '10px',
+        '&:focus': {
+            outline: 'none',
+        },
     },
     button: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: '2%',
-        zIndex: '100',
     },
     submitButton: {
         color: '#FFF',
@@ -98,5 +102,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '20px',
         fontSize: '10px',
         margin: '3%',
+        border: 'none',
+        background: '#f0f0f066',
     },
 }));

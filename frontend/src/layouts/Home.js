@@ -124,11 +124,7 @@ export default function Home({ setIsAuthenticated }) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        // alignItems: 'center',
-        justifyContent: 'space-between',
         height: '100vh',
-        flexDirection: 'column',
     },
     logo: {
         width: '200px',
@@ -136,13 +132,11 @@ const useStyles = makeStyles((theme) => ({
     card: {
         borderRadius: '10px',
         width: '40%',
-        border: '1px solid white',
-        display: 'inline-block',
-        alignSelf: 'center',
-        // // background: '#eff3ff66',
-        // background: '#f0f0f066',
-        // zIndex: 1,
-        // position: 'relative',
+        margin: '10% auto 2% auto',
+        paddingBottom: '10px',
+        // background:
+        //     'linear-gradient(to right bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.1))',
+        background: 'rgba(255,255,255,0.1)',
         backdropFilter: `blur(1px)`,
         backgroundClip: 'border-box',
     },
