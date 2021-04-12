@@ -3,11 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
 import { Tabs, Tab } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import logo from '../images/meetum-logo.png';
 
 export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
-
+    const [errorMsgs, setErrorMsgs] = useState([]);
+    const [cognitoError, setCognitoError] = useState('');
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -19,6 +21,45 @@ export default function Home({ setIsAuthenticated }) {
     const [tabValue, setTabValue] = useState(0);
     const handleTabChange = (_, newValue) => {
         setTabValue(newValue);
+    };
+
+    // Handle errors function
+    const handleErrors = () => {
+        let tempArr = [];
+
+        //Password length validation;
+        if (user.password.length < 8) {
+            tempArr.push('Password needs to be a minimum of 8 characters');
+        }
+
+        // Uppercase validation
+        let upperCase = new RegExp(/^(?=.*[A-Z])/);
+        if (!upperCase.test(user.password)) {
+            tempArr.push('Password needs an UPPERCASE letter');
+        }
+
+        //Lowercase validation
+        let lowerCase = new RegExp(/^(?=.*[a-z])/);
+        if (!lowerCase.test(user.password)) {
+            tempArr.push('Password needs an lowercase letter');
+        }
+        //Number validation
+        let digits = new RegExp(/^(?=.*[0-9])/);
+        if (!digits.test(user.password)) {
+            tempArr.push('Password needs to include a number');
+        }
+        //Special character validaton
+        let special = new RegExp(/^(?=.*?[#?!@$%^&*-])/);
+        if (!special.test(user.password)) {
+            tempArr.push('Password needs to include a special character');
+        }
+
+        //Password match validation
+        if (user.password !== user.confirmPassword) {
+            tempArr.push('Password & Confirm Password does not match');
+        }
+
+        return tempArr;
     };
 
     return (
@@ -49,6 +90,9 @@ export default function Home({ setIsAuthenticated }) {
                         user={user}
                         setUser={setUser}
                         setIsAuthenticated={setIsAuthenticated}
+                        handleErrors={handleErrors}
+                        setErrorMsgs={setErrorMsgs}
+                        setCognitoError={setCognitoError}
                     />
                 ) : (
                     /////////////////////////////// Register ////////////////////////////////////////////
@@ -56,8 +100,25 @@ export default function Home({ setIsAuthenticated }) {
                         user={user}
                         setUser={setUser}
                         setIsAuthenticated={setIsAuthenticated}
+                        handleErrors={handleErrors}
+                        errorMsgs={errorMsgs}
+                        setErrorMsgs={setErrorMsgs}
+                        cognitoError={cognitoError}
+                        setCognitoError={setCognitoError}
                     />
                 )}
+            </div>
+            <div>
+                {errorMsgs.map((errorMsg) => (
+                    <Alert className={classes.alert} severity="error">
+                        {errorMsg}
+                    </Alert>
+                ))}
+                {cognitoError ? (
+                    <Alert className={classes.alert} severity="error">
+                        {cognitoError}
+                    </Alert>
+                ) : null}
             </div>
         </div>
     );
@@ -69,6 +130,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
+        flexDirection: 'column',
     },
     logo: {
         width: '200px',
@@ -96,5 +158,8 @@ const useStyles = makeStyles((theme) => ({
     },
     indicator: {
         backgroundColor: 'white',
+    },
+    alert: {
+        margin: '5%',
     },
 }));

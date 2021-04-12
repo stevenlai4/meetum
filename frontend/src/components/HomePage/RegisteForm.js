@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
 
-export default function RegisterForm({ user, setUser }) {
+export default function RegisterForm({
+    user,
+    setUser,
+    handleErrors,
+    setErrorMsgs,
+    cognitoError,
+    setCognitoError,
+}) {
     const classes = useStyles();
+    // const [cognitoError, setCognitoError] = useState('');
 
     //handle register
     const handleRegister = async (event) => {
         event.preventDefault();
+        // Check user input errors before access the database
+        const errors = handleErrors();
+        if (errors.length > 0) {
+            setErrorMsgs(errors);
+            return;
+        } else {
+            setErrorMsgs([]);
+        }
 
         try {
             // cognito register api
@@ -22,6 +38,7 @@ export default function RegisterForm({ user, setUser }) {
                 alert('please confirm email');
             }
         } catch (error) {
+            setCognitoError(error.message);
             console.log(error);
         }
     };

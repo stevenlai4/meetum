@@ -4,13 +4,19 @@ import { Button, FormControl } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { cognitoLogin } from '../../userAuth';
 
-export default function LoginForm({ setUser, user, setIsAuthenticated }) {
+export default function LoginForm({
+    setUser,
+    user,
+    setIsAuthenticated,
+    setCognitoError,
+}) {
     const classes = useStyles();
     const history = useHistory();
 
     //handle login
     const handleLogin = async (event) => {
         event.preventDefault();
+
         try {
             // cognito login api
             const response = await cognitoLogin({
@@ -23,6 +29,7 @@ export default function LoginForm({ setUser, user, setIsAuthenticated }) {
                 history.push('./dashboard');
             }
         } catch (error) {
+            setCognitoError(error.message);
             console.log(error);
         }
     };
