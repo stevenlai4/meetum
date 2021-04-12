@@ -4,6 +4,7 @@ import { Link } from '@material-ui/core';
 
 export default function Dashboard({ setIsAuthenticated }) {
     const history = useHistory();
+    //handle sign out
     const signOut = () => {
         setIsAuthenticated(false);
         localStorage.clear();
