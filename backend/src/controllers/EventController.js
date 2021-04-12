@@ -1,3 +1,4 @@
+const jwt_decode = require('jwt-decode');
 const Event = require('../models/Event');
 const User = require('../models/User');
 
@@ -5,7 +6,7 @@ module.exports = {
     // Create new event (address is from creator)
     async createEvent(req, res) {
         const { name, date, description, address } = req.body;
-        const { cognito_id } = req.headers;
+        const userAuth = jwt_decode(req.token);
 
         // Check if the name and event date are filled
         if (!name || !date || !address) {
@@ -16,10 +17,11 @@ module.exports = {
 
         try {
             //Check if user exist
-            const user = await User.findOne({ cognito_id });
+            const user = await User.findOne({ cognito_id: userAuth.sub });
             if (!user) {
-                res.send({ message: 'User Not Found' });
-                return;
+                return res.status(400).json({
+                    errMessage: 'User Not Found',
+                });
             }
 
             //Create a new event to mongodb

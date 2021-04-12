@@ -10,6 +10,6 @@ routes.post('/user/register', verifyToken, UserController.registerUser);
 
 /////////////////////// Event ///////////////////////
 // Create event
-routes.post('/event', EventController.createEvent);
+routes.post('/event', verifyToken, EventController.createEvent);
 
 module.exports = routes;
