@@ -5,17 +5,7 @@ module.exports = {
     // Register a new user
     async registerUser(req, res) {
         const { address } = req.body;
-        const { authorization } = req.headers;
-        let userAuth = {};
-
-        // Decode the Authorization JWT
-        if (authorization) {
-            userAuth = jwt_decode(authorization);
-        } else {
-            return res.status(400).json({
-                errMessage: 'Invalid token',
-            });
-        }
+        const userAuth = jwt_decode(req.token);
 
         // Check if the address input is filled or the default
         // checkout is checked
