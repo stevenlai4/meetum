@@ -8,7 +8,7 @@ export default function LoginForm({
     setUser,
     user,
     setIsAuthenticated,
-    setCognitoLoginError,
+    setErrorMsg,
 }) {
     const classes = useStyles();
     const history = useHistory();
@@ -29,7 +29,7 @@ export default function LoginForm({
                 history.push('./dashboard');
             }
         } catch (error) {
-            setCognitoLoginError(error.message);
+            setErrorMsg(error.message);
             console.log(error);
         }
     };
