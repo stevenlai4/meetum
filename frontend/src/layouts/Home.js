@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
-import { Tabs, Tab } from '@material-ui/core';
+import { Tabs, Tab, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import logo from '../images/meetum-logo.png';
 
 export default function Home({ setIsAuthenticated }) {
     const classes = useStyles();
     const [errorMsgs, setErrorMsgs] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -91,7 +90,6 @@ export default function Home({ setIsAuthenticated }) {
                         setIsAuthenticated={setIsAuthenticated}
                         handleErrors={handleErrors}
                         setErrorMsgs={setErrorMsgs}
-                        setErrorMsg={setErrorMsg}
                     />
                 ) : (
                     /////////////////////////////// Register ////////////////////////////////////////////
@@ -107,22 +105,18 @@ export default function Home({ setIsAuthenticated }) {
             </div>
             {/* /////////////////////////////// Show validation alert //////////////////////////////////////////// */}
             <div>
-                {/* show Register errors */}
-                {errorMsgs.map((errorMsg, index) => (
-                    <Alert
-                        className={classes.alert}
-                        key={index}
-                        severity="error"
-                    >
-                        {errorMsg}
-                    </Alert>
-                ))}
-                {/* show login errors */}
-                {errorMsg ? (
-                    <Alert className={classes.alert} severity="error">
-                        {errorMsg}
-                    </Alert>
-                ) : null}
+                {/* show Register/login errors */}
+                {errorMsgs.length > 0
+                    ? errorMsgs.map((errorMsg, index) => (
+                          <Alert
+                              className={classes.alert}
+                              key={index}
+                              severity="error"
+                          >
+                              {errorMsg}
+                          </Alert>
+                      ))
+                    : null}
             </div>
         </div>
     );
@@ -131,23 +125,20 @@ export default function Home({ setIsAuthenticated }) {
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        justifyContent: 'space-between',
         height: '100vh',
         flexDirection: 'column',
-        // margin: '1%',
     },
     logo: {
         width: '200px',
-        position: 'absolute',
-        left: 10,
-        top: 10,
     },
     card: {
         borderRadius: '10px',
         width: '40%',
         border: '1px solid white',
         display: 'inline-block',
+        alignSelf: 'center',
         // // background: '#eff3ff66',
         // background: '#f0f0f066',
         // zIndex: 1,
@@ -165,6 +156,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
     },
     alert: {
-        margin: '5%',
+        margin: '2% auto',
+        width: '40%',
     },
 }));

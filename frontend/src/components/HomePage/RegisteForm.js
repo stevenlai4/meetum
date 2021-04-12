@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
@@ -8,6 +8,7 @@ export default function RegisterForm({
     setUser,
     handleErrors,
     setErrorMsgs,
+    setOpen,
 }) {
     const classes = useStyles();
 
@@ -18,6 +19,7 @@ export default function RegisterForm({
         const errors = handleErrors();
         if (errors.length > 0) {
             setErrorMsgs(errors);
+            setTimeout(() => setErrorMsgs([]), 5000);
             return;
         } else {
             setErrorMsgs([]);
@@ -36,6 +38,7 @@ export default function RegisterForm({
             }
         } catch (error) {
             setErrorMsgs([error.message]);
+            setOpen(true);
             console.log(error);
         }
     };
