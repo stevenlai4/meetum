@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/HomePage/LoginForm';
 import RegisterForm from '../components/HomePage/RegisteForm';
-import { Tabs, Tab, Snackbar } from '@material-ui/core';
+import { Tabs, Tab } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import logo from '../images/meetum-logo.png';
 
