@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Dashboard from './layouts/Dashboard';
+import Home from './layouts/Home';
+import GuardedRoute from './components/GuardedRoute';
+import { refreshAuthToken } from './userAuth';
+import useLocalStorage from 'react-use-localstorage';
+import { Redirect } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    const [isAuthenticated, setIsAuthenticated] = useLocalStorage(
+        'isAuthorized',
+        false
+    );
+
+    //Refresh Cognito Auth Token
+    useEffect(() => {
+        (async () => {
+            try {
+                await refreshAuthToken(setIsAuthenticated);
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
+
+    return (
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    {/* Redirect to dashboard if user has already login (isAithorized) otherwise redirect to home page to login*/}
+                    {localStorage.getItem('isAuthorized') === 'true' ? (
+                        <Redirect from="/" to="/dashboard" />
+                    ) : (
+                        <Home setIsAuthenticated={setIsAuthenticated} />
+                    )}
+                </Route>
+                <GuardedRoute
+                    path="/dashboard"
+                    isAuthenticated={isAuthenticated}
+                    setIsAuthenticated={setIsAuthenticated}
+                    component={Dashboard}
+                />
+            </Switch>
+        </Router>
+    );
 }
-
-export default App;
