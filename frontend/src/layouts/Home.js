@@ -68,7 +68,6 @@ export default function Home({ setIsAuthenticated }) {
             {/* ///////////////////////////////login & register box/////////////////////////////////// */}
             <div className={classes.card}>
                 {/* /////////////////////////////// Tab /////////////////////////////////////////////*/}
-
                 <Tabs
                     variant="fullWidth"
                     classes={{
@@ -103,14 +102,18 @@ export default function Home({ setIsAuthenticated }) {
                         handleErrors={handleErrors}
                         errorMsgs={errorMsgs}
                         setErrorMsgs={setErrorMsgs}
-                        cognitoError={cognitoError}
                         setCognitoError={setCognitoError}
                     />
                 )}
             </div>
+            {/* /////////////////////////////// Show validation alert //////////////////////////////////////////// */}
             <div>
-                {errorMsgs.map((errorMsg) => (
-                    <Alert className={classes.alert} severity="error">
+                {errorMsgs.map((errorMsg, index) => (
+                    <Alert
+                        className={classes.alert}
+                        key={index}
+                        severity="error"
+                    >
                         {errorMsg}
                     </Alert>
                 ))}

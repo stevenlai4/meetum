@@ -8,12 +8,9 @@ export default function RegisterForm({
     setUser,
     handleErrors,
     setErrorMsgs,
-    cognitoError,
     setCognitoError,
 }) {
     const classes = useStyles();
-    // const [cognitoError, setCognitoError] = useState('');
-
     //handle register
     const handleRegister = async (event) => {
         event.preventDefault();
