@@ -48,7 +48,6 @@ export const createEvent = async ({ message, chatboxId }) => {
                 params: {
                     chatboxId,
                 },
-
                 headers: { Authorization: `Bearer ${token}` },
             }
         );
@@ -58,6 +57,26 @@ export const createEvent = async ({ message, chatboxId }) => {
             const data = await JSON.parse(body);
 
             return data;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Get all user events
+export const getAllEvents = async () => {
+    try {
+        const token = await getToken();
+        const response = await api.get('/events', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const events = response.data?.events;
+
+            return events;
         }
     } catch (error) {
         throw error;
