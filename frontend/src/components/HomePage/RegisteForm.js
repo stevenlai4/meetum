@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
@@ -72,6 +72,22 @@ export default function RegisterForm({
                         })
                     }
                 />
+            </FormControl>
+            <FormControl fullWidth={true}>
+                <input
+                    className={classes.input}
+                    placeholder="Your Location"
+                    type="text"
+                    value={user.address}
+                    autoComplete="on"
+                    onChange={(e) =>
+                        setUser({
+                            ...user,
+                            address: e.target.value,
+                        })
+                    }
+                />
+                {console.log(user.address)}
             </FormControl>
             <FormControl fullWidth={true}>
                 <input
