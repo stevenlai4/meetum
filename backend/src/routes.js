@@ -11,5 +11,7 @@ routes.post('/user/register', UserController.registerUser);
 /////////////////////// Event ///////////////////////
 // Create event
 routes.post('/event', verifyToken, EventController.createEvent);
+// Get all events
+routes.get('/events', verifyToken, EventController.getAllEvents);
 
 module.exports = routes;
