@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
     cognito_id: String,
-    username: String,
+    name: String,
     address: String,
     events: [
         {
