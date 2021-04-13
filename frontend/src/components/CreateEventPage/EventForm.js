@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import {
-    Button,
-    Typography,
-    TextField,
-    Select,
-    FormControl,
-    InputLabel,
-    MenuItem,
-} from '@material-ui/core';
+import { Button, Typography, TextField, FormControl } from '@material-ui/core';
 import { createEvent } from '../../network';
 
 export default function CreateEvent() {
@@ -65,16 +57,15 @@ export default function CreateEvent() {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        InputProps={{ disableUnderline: true }}
+                        InputProps={{
+                            className: classes.timepicker,
+                            disableUnderline: true,
+                        }}
                         value={eventDate}
                         onChange={(e) => setEventDate(e.target.value)}
                     />
                 </FormControl>
-                <FormControl
-                    variant="outlined"
-                    fullWidth={true}
-                    // className={classes.dropdown}
-                >
+                <FormControl variant="outlined" fullWidth={true}>
                     <select
                         id="locationPref"
                         className={classes.dropdown}
@@ -177,8 +168,6 @@ const useStyles = makeStyles((theme) => ({
         width: '40%',
         margin: '5% auto 2% auto',
         padding: '10px',
-        // background:
-        //     'linear-gradient(to right bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.1))',
         background: 'rgba(255,255,255,0.1)',
         backdropFilter: `blur(1px)`,
         backgroundClip: 'border-box',
@@ -200,7 +189,6 @@ const useStyles = makeStyles((theme) => ({
             outline: 'none',
         },
         background: 'rgba(255,255,255,0.15)',
-        // color: '#FFF',
     },
     input: {
         width: '60%',
@@ -214,6 +202,9 @@ const useStyles = makeStyles((theme) => ({
         },
         background: 'rgba(255,255,255,0.15)',
         color: '#FFF',
+    },
+    timepicker: {
+        color: '#a9a9a9',
     },
     button: {
         display: 'flex',
