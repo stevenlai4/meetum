@@ -152,7 +152,6 @@ export default function CreateEvent() {
                             }
                         />
                     </FormControl>
-                    {console.log(locationPref)}
                     <FormControl fullWidth={true}>
                         <input
                             className={classes.input}
@@ -165,7 +164,6 @@ export default function CreateEvent() {
                             }
                         />
                     </FormControl>
-
                     <div className={classes.button}>
                         <Button
                             type="submit"
