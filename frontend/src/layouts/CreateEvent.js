@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Alert } from '@material-ui/lab';
 import { Button, FormControl, Typography } from '@material-ui/core';
 import logo from '../images/meetum-logo.png';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export default function CreateEvent({ setIsAuthenticated }) {
     const classes = useStyles();
@@ -13,7 +14,8 @@ export default function CreateEvent({ setIsAuthenticated }) {
     // const [locationPref, setLocationPref] = useState('');
     const [userLocation, setUserLocation] = useState('');
     const [description, setDescription] = useState('');
-    const [participantEmail, setParticipantEmail] = useState('');
+    const [participantEmail_1, setParticipantEmail_1] = useState('');
+    const [participantEmail_2, setParticipantEmail_2] = useState('');
 
     //handle sign out
     const handleCreateEvent = () => {
@@ -74,15 +76,43 @@ export default function CreateEvent({ setIsAuthenticated }) {
                         />
                     </FormControl>
                     <FormControl fullWidth={true}>
-                        <input
+                        <textarea
                             className={classes.input}
                             placeholder="Description"
                             type="text"
+                            rows="5"
+                            cols="40"
                             value={description}
                             autoComplete="on"
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </FormControl>
+
+                    <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Participant Email"
+                            type="text"
+                            value={participantEmail_1}
+                            autoComplete="on"
+                            onChange={(e) =>
+                                setParticipantEmail_1(e.target.value)
+                            }
+                        />
+                    </FormControl>
+                    <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Participant Email"
+                            type="text"
+                            value={participantEmail_2}
+                            autoComplete="on"
+                            onChange={(e) =>
+                                setParticipantEmail_2(e.target.value)
+                            }
+                        />
+                    </FormControl>
+
                     <div className={classes.button}>
                         <Button
                             type="submit"
@@ -100,7 +130,7 @@ export default function CreateEvent({ setIsAuthenticated }) {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: '100vh',
+        // height: '100vh',
     },
     logo: {
         width: '200px',
@@ -122,28 +152,23 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '2%',
         color: '#FFF',
     },
-    indicator: {
-        backgroundColor: 'white',
-    },
-    alert: {
-        margin: '2% auto',
-        width: '40%',
-    },
+    // alert: {
+    //     margin: '2% auto',
+    //     width: '40%',
+    // },
     input: {
         width: '60%',
         margin: '3% auto',
         padding: '3%',
         border: 'none',
+        resize: 'none',
         borderRadius: '10px',
         '&:focus': {
             outline: 'none',
         },
         background: 'rgba(255,255,255,0.15)',
+        color: '#FFF',
     },
-    '::placeholder': {
-        color: 'red',
-    },
-
     button: {
         display: 'flex',
         alignItems: 'center',
