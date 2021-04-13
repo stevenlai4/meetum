@@ -32,8 +32,6 @@ export default function RegisterForm({
                 email: user.email,
                 password: user.password,
             });
-
-            console.log(userSub);
             await registerUser({
                 cognito_id: userSub,
                 name: user.name,

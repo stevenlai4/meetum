@@ -16,7 +16,7 @@ const getToken = async () => {
 
 // Config axios
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'https://meetum-backend.herokuapp.com',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -36,3 +36,30 @@ export async function registerUser({ cognito_id, address, name }) {
         throw error;
     }
 }
+
+// Create new event
+export const createEvent = async ({ message, chatboxId }) => {
+    try {
+        const token = await getToken();
+        const response = await api.post(
+            `/chatbox/message`,
+            { message },
+            {
+                params: {
+                    chatboxId,
+                },
+
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        if (response) {
+            const body = response.data?.body;
+            const data = await JSON.parse(body);
+
+            return data;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
