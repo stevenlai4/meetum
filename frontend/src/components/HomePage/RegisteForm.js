@@ -33,13 +33,13 @@ export default function RegisterForm({
                 password: user.password,
             });
             if (userSub) {
+                await registerUser({
+                    cognito_id: userSub,
+                    name: user.name,
+                    address: user.address,
+                });
                 alert('Successfully Register, Please confirm email');
             }
-            await registerUser({
-                cognito_id: userSub,
-                name: user.name,
-                address: user.address,
-            });
         } catch (error) {
             setErrorMsgs([error.message]);
             console.log(error);
