@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { Alert } from '@material-ui/lab';
-import { Button, FormControl, Typography, TextField } from '@material-ui/core';
+import {
+    Button,
+    Typography,
+    TextField,
+    Select,
+    FormControl,
+    InputLabel,
+    MenuItem,
+} from '@material-ui/core';
 import logo from '../images/meetum-logo.png';
 import { createEvent } from '../network';
 
@@ -80,7 +87,7 @@ export default function CreateEvent() {
                             onChange={(e) => setEventDate(e.target.value)}
                         />
                     </FormControl> */}
-                    <FormControl fullWidth={true}>
+                    {/* <FormControl fullWidth={true}>
                         <input
                             className={classes.input}
                             placeholder="Location Preference (eg: Cafe,Park,Library...)"
@@ -89,6 +96,26 @@ export default function CreateEvent() {
                             autoComplete="on"
                             onChange={(e) => setLocationPref(e.target.value)}
                         />
+                    </FormControl> */}
+                    <FormControl
+                        variant="outlined"
+                        fullWidth={true}
+                        className={classes.dropdown}
+                    >
+                        <InputLabel>Location Preference</InputLabel>
+                        <Select
+                            id="locationPref"
+                            className={classes.select}
+                            value={locationPref}
+                            onChange={(e) => setLocationPref(e.target.value)}
+                            label="Location Preference"
+                        >
+                            <MenuItem value=""></MenuItem>
+                            <MenuItem value="cafe">Cafe</MenuItem>
+                            <MenuItem value="park">Park</MenuItem>
+                            <MenuItem value="library">Library</MenuItem>
+                            <MenuItem value="restaurant">Restaurant</MenuItem>
+                        </Select>
                     </FormControl>
                     <FormControl fullWidth={true}>
                         <input
@@ -125,6 +152,7 @@ export default function CreateEvent() {
                             }
                         />
                     </FormControl>
+                    {console.log(locationPref)}
                     <FormControl fullWidth={true}>
                         <input
                             className={classes.input}
@@ -154,6 +182,14 @@ export default function CreateEvent() {
 }
 
 const useStyles = makeStyles((theme) => ({
+    // select: {
+    //     '&:before': {
+    //         borderColor: 'rgba(255,255,255,0.1)',
+    //     },
+    //     '&:after': {
+    //         borderColor: 'black',
+    //     },
+    // },
     root: {
         // height: '100vh',
     },
@@ -177,10 +213,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '2%',
         color: '#FFF',
     },
-    // alert: {
-    //     margin: '2% auto',
-    //     width: '40%',
-    // },
+    dropdown: {
+        width: '65%',
+        margin: '3% auto',
+        borderRadius: '10px',
+        background: 'rgba(255,255,255,0.15)',
+        color: '#FFF',
+        display: 'flex',
+    },
     input: {
         width: '60%',
         margin: '3% auto',
