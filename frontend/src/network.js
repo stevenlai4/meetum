@@ -38,26 +38,20 @@ export async function registerUser({ cognito_id, address, name }) {
 }
 
 // Create new event
-export const createEvent = async ({ message, chatboxId }) => {
+export const createEvent = async ({ name, date, description, address }) => {
     try {
         const token = await getToken();
         const response = await api.post(
-            `/chatbox/message`,
-            { message },
+            `/event`,
+            { name, date, description, address },
             {
-                params: {
-                    chatboxId,
-                },
-
                 headers: { Authorization: `Bearer ${token}` },
             }
         );
 
         if (response) {
-            const body = response.data?.body;
-            const data = await JSON.parse(body);
-
-            return data;
+            console.log(response);
+            return response.data;
         }
     } catch (error) {
         throw error;

@@ -4,11 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { Alert } from '@material-ui/lab';
 import { Button, FormControl, Typography } from '@material-ui/core';
 import logo from '../images/meetum-logo.png';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { createEvent } from '../network';
 
-export default function CreateEvent({ setIsAuthenticated }) {
+export default function CreateEvent() {
     const classes = useStyles();
     const history = useHistory();
+
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
     // const [locationPref, setLocationPref] = useState('');
@@ -17,10 +18,25 @@ export default function CreateEvent({ setIsAuthenticated }) {
     const [participantEmail_1, setParticipantEmail_1] = useState('');
     const [participantEmail_2, setParticipantEmail_2] = useState('');
 
-    //handle sign out
-    const handleCreateEvent = () => {
-        alert('created!');
-        history.push('./dashboard');
+    //handle create event
+    const handleCreateEvent = async (event) => {
+        event.preventDefault();
+        try {
+            if (eventName && eventDate && userLocation) {
+                const response = await createEvent({
+                    name: eventName,
+                    date: eventDate,
+                    description: description,
+                    address: userLocation,
+                });
+                alert(response.successMessage);
+                history.push('./dashboard');
+            } else {
+                alert('All fields must be filled');
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
     };
 
     return (
