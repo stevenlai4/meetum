@@ -10,6 +10,10 @@ const EventSchema = new mongoose.Schema({
             _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
             address: String,
             role: String,
+            is_going: {
+                type: Boolean,
+                default: false,
+            },
         },
     ],
     createdOn: {
