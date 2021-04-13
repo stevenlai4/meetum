@@ -4,6 +4,7 @@ const EventSchema = new mongoose.Schema({
     name: String,
     date: Date,
     description: String,
+    locationPref: String,
     location: { type: String, default: '' },
     users: [
         {
