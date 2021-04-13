@@ -70,27 +70,25 @@ export default function CreateEvent() {
                         onChange={(e) => setEventDate(e.target.value)}
                     />
                 </FormControl>
-                {/* <FormControl fullWidth={true}>
-                        <input
-                            className={classes.input}
-                            placeholder="Event Date"
-                            type="text"
-                            value={eventDate}
-                            autoComplete="on"
-                            onChange={(e) => setEventDate(e.target.value)}
-                        />
-                    </FormControl> */}
-                {/* <FormControl fullWidth={true}>
-                        <input
-                            className={classes.input}
-                            placeholder="Location Preference (eg: Cafe,Park,Library...)"
-                            type="text"
-                            value={locationPref}
-                            autoComplete="on"
-                            onChange={(e) => setLocationPref(e.target.value)}
-                        />
-                    </FormControl> */}
                 <FormControl
+                    variant="outlined"
+                    fullWidth={true}
+                    // className={classes.dropdown}
+                >
+                    <select
+                        id="locationPref"
+                        className={classes.dropdown}
+                        value={locationPref}
+                        onChange={(e) => setLocationPref(e.target.value)}
+                    >
+                        <option value="">Location Preference:</option>
+                        <option value="cafe">Cafe</option>
+                        <option value="park">Park</option>
+                        <option value="library">Library</option>
+                        <option value="restaurant">Restaurant</option>
+                    </select>
+                </FormControl>
+                {/* <FormControl
                     variant="outlined"
                     fullWidth={true}
                     className={classes.dropdown}
@@ -109,7 +107,7 @@ export default function CreateEvent() {
                         <MenuItem value="library">Library</MenuItem>
                         <MenuItem value="restaurant">Restaurant</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl> */}
                 <FormControl fullWidth={true}>
                     <input
                         className={classes.input}
@@ -202,10 +200,15 @@ const useStyles = makeStyles((theme) => ({
     dropdown: {
         width: '65%',
         margin: '3% auto',
+        padding: '3%',
+        border: 'none',
+        resize: 'none',
         borderRadius: '10px',
+        '&:focus': {
+            outline: 'none',
+        },
         background: 'rgba(255,255,255,0.15)',
-        color: '#FFF',
-        display: 'flex',
+        // color: '#FFF',
     },
     input: {
         width: '60%',

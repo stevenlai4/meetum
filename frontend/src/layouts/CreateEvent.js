@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from '../images/meetum-logo.png';
-import EventForm from '../components/CreateEvent/EventForm';
+import EventForm from '../components/CreateEventPage/EventForm';
 
 export default function Dashboard({ setIsAuthenticated }) {
     const classes = useStyles();
