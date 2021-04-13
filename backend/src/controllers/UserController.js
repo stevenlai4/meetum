@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const jwt_decode = require('jwt-decode');
 
 module.exports = {
     // Register a new user
