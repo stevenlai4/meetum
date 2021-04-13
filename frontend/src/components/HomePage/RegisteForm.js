@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
+import { registerUser } from '../../network';
 
 export default function RegisterForm({
     user,
@@ -26,14 +27,18 @@ export default function RegisterForm({
 
         try {
             // cognito register api
-            const response = await cognitoRegister({
+            const userSub = await cognitoRegister({
                 name: user.name,
                 email: user.email,
                 password: user.password,
             });
-            if (response) {
-                console.log('Successfully Register');
-                alert('please confirm email');
+            if (userSub) {
+                await registerUser({
+                    cognito_id: userSub,
+                    name: user.name,
+                    address: user.address,
+                });
+                alert('Successfully Register, Please confirm email');
             }
         } catch (error) {
             setErrorMsgs([error.message]);
@@ -69,6 +74,21 @@ export default function RegisterForm({
                         setUser({
                             ...user,
                             email: e.target.value,
+                        })
+                    }
+                />
+            </FormControl>
+            <FormControl fullWidth={true}>
+                <input
+                    className={classes.input}
+                    placeholder="Your Location"
+                    type="text"
+                    value={user.address}
+                    autoComplete="on"
+                    onChange={(e) =>
+                        setUser({
+                            ...user,
+                            address: e.target.value,
                         })
                     }
                 />

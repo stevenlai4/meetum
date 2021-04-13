@@ -12,6 +12,7 @@ export default function Home({ setIsAuthenticated }) {
     const [user, setUser] = useState({
         name: '',
         email: '',
+        address: '',
         password: '',
         confirmPassword: '',
     });
