@@ -28,7 +28,7 @@ export async function getUserInfo() {
 //register user from cognito
 export async function cognitoRegister({ email, password, name }) {
     try {
-        const userSub = await Auth.signUp({
+        const { userSub } = await Auth.signUp({
             username: email,
             password: password,
             attributes: {
