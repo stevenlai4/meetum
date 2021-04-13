@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { Alert } from '@material-ui/lab';
-import { Button, FormControl, Typography } from '@material-ui/core';
+import { Button, FormControl, Typography, TextField } from '@material-ui/core';
 import logo from '../images/meetum-logo.png';
 import { createEvent } from '../network';
 
@@ -12,7 +12,7 @@ export default function CreateEvent() {
 
     const [eventName, setEventName] = useState('');
     const [eventDate, setEventDate] = useState('');
-    // const [locationPref, setLocationPref] = useState('');
+    const [locationPref, setLocationPref] = useState('');
     const [userLocation, setUserLocation] = useState('');
     const [description, setDescription] = useState('');
     const [participantEmail_1, setParticipantEmail_1] = useState('');
@@ -58,6 +58,19 @@ export default function CreateEvent() {
                         />
                     </FormControl>
                     <FormControl fullWidth={true}>
+                        <TextField
+                            className={classes.input}
+                            id="datetime-local"
+                            type="datetime-local"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            InputProps={{ disableUnderline: true }}
+                            value={eventDate}
+                            onChange={(e) => setEventDate(e.target.value)}
+                        />
+                    </FormControl>
+                    {/* <FormControl fullWidth={true}>
                         <input
                             className={classes.input}
                             placeholder="Event Date"
@@ -66,21 +79,17 @@ export default function CreateEvent() {
                             autoComplete="on"
                             onChange={(e) => setEventDate(e.target.value)}
                         />
-                    </FormControl>
-                    {/* <FormControl fullWidth={true}>
+                    </FormControl> */}
+                    <FormControl fullWidth={true}>
                         <input
                             className={classes.input}
                             placeholder="Location Preference (eg: Cafe,Park,Library...)"
                             type="text"
                             value={locationPref}
                             autoComplete="on"
-                            onChange={(e) =>
-                                setLocationPref({
-                                    location: e.target.value,
-                                })
-                            }
+                            onChange={(e) => setLocationPref(e.target.value)}
                         />
-                    </FormControl> */}
+                    </FormControl>
                     <FormControl fullWidth={true}>
                         <input
                             className={classes.input}
