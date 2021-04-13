@@ -6,7 +6,7 @@ const EventController = require('./controllers/EventController');
 
 /////////////////////// User ///////////////////////
 // Register user
-routes.post('/user/register', verifyToken, UserController.registerUser);
+routes.post('/user/register', UserController.registerUser);
 
 /////////////////////// Event ///////////////////////
 // Create event

@@ -29,7 +29,14 @@ module.exports = {
                 name,
                 date,
                 description,
-                users: [{ address, _id: user._id, role: 'Organiser' }],
+                users: [
+                    {
+                        address,
+                        _id: user._id,
+                        role: 'Organiser',
+                        is_going: true,
+                    },
+                ],
             });
 
             //Push event in events array of user (user.events)
