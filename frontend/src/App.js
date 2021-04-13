@@ -22,6 +22,7 @@ export default function App() {
                 console.error(error);
             }
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

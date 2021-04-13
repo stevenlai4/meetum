@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         cursor: 'pointer',
         borderRadius: 10,
-        transition: 'ease-in-out 0.7s',
+        transition: 'ease-in-out 0.6s',
         '&:hover': {
             background: 'rgba(255,255,255,0.4)',
         },
