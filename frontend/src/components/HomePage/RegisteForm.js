@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, FormControl } from '@material-ui/core';
 import { cognitoRegister } from '../../userAuth';
+import { registerUser } from '../../network';
 
 export default function RegisterForm({
     user,
@@ -26,12 +27,20 @@ export default function RegisterForm({
 
         try {
             // cognito register api
-            const response = await cognitoRegister({
+            const userSub = await cognitoRegister({
                 name: user.name,
                 email: user.email,
                 password: user.password,
             });
-            if (response) {
+
+            console.log(userSub);
+            await registerUser({
+                cognito_id: userSub,
+                name: user.name,
+                address: user.address,
+            });
+
+            if (userSub) {
                 console.log('Successfully Register');
                 alert('please confirm email');
             }
@@ -87,7 +96,6 @@ export default function RegisterForm({
                         })
                     }
                 />
-                {console.log(user.address)}
             </FormControl>
             <FormControl fullWidth={true}>
                 <input
