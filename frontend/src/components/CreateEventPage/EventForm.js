@@ -20,18 +20,16 @@ export default function CreateEvent() {
     const handleCreateEvent = async (event) => {
         event.preventDefault();
         try {
-            if (eventName && eventDate && userLocation) {
-                const response = await createEvent({
-                    name: eventName,
-                    date: eventDate,
-                    description: description,
-                    address: userLocation,
-                });
-                alert(response.successMessage);
-                history.push('./dashboard');
-            }
+            const response = await createEvent({
+                name: eventName,
+                date: eventDate,
+                description: description,
+                address: userLocation,
+            });
+            alert(response.successMessage);
+            history.push('./dashboard');
         } catch (error) {
-            console.error(error.message);
+            console.error(error.response.data.errMessage);
         }
     };
 
@@ -72,7 +70,9 @@ export default function CreateEvent() {
                         value={locationPref}
                         onChange={(e) => setLocationPref(e.target.value)}
                     >
-                        <option value="">Location Preference:</option>
+                        <option value="" disabled>
+                            Location Preference
+                        </option>
                         <option value="cafe">Cafe</option>
                         <option value="park">Park</option>
                         <option value="library">Library</option>
@@ -125,21 +125,11 @@ export default function CreateEvent() {
                 <FormControl fullWidth={true}>
                     <input
                         className={classes.input}
-                        placeholder="Participant Email"
+                        placeholder="Participant Emai (eg: 1@meetum.com , 2@meetum.com)"
                         type="text"
                         value={participantEmail_1}
                         autoComplete="on"
                         onChange={(e) => setParticipantEmail_1(e.target.value)}
-                    />
-                </FormControl>
-                <FormControl fullWidth={true}>
-                    <input
-                        className={classes.input}
-                        placeholder="Participant Email"
-                        type="text"
-                        value={participantEmail_2}
-                        autoComplete="on"
-                        onChange={(e) => setParticipantEmail_2(e.target.value)}
                     />
                 </FormControl>
                 <div className={classes.button}>
@@ -157,12 +147,6 @@ export default function CreateEvent() {
 }
 
 const useStyles = makeStyles((theme) => ({
-    'input::placeholder': {
-        color: 'red',
-    },
-    logo: {
-        width: '200px',
-    },
     card: {
         borderRadius: '10px',
         width: '40%',
@@ -179,7 +163,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#FFF',
     },
     dropdown: {
-        width: '65%',
+        width: '85%',
         margin: '3% auto',
         padding: '3%',
         border: 'none',
@@ -189,9 +173,10 @@ const useStyles = makeStyles((theme) => ({
             outline: 'none',
         },
         background: 'rgba(255,255,255,0.15)',
+        color: 'white',
     },
     input: {
-        width: '60%',
+        width: '80%',
         margin: '3% auto',
         padding: '3%',
         border: 'none',
@@ -204,7 +189,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#FFF',
     },
     timepicker: {
-        color: '#a9a9a9',
+        color: 'white',
     },
     button: {
         display: 'flex',
