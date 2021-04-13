@@ -1,0 +1,161 @@
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
+import { Alert } from '@material-ui/lab';
+import { Button, FormControl, Typography } from '@material-ui/core';
+import logo from '../images/meetum-logo.png';
+
+export default function CreateEvent({ setIsAuthenticated }) {
+    const classes = useStyles();
+    const history = useHistory();
+    const [eventName, setEventName] = useState('');
+    const [eventDate, setEventDate] = useState('');
+    // const [locationPref, setLocationPref] = useState('');
+    const [userLocation, setUserLocation] = useState('');
+    const [description, setDescription] = useState('');
+    const [participantEmail, setParticipantEmail] = useState('');
+
+    //handle sign out
+    const handleCreateEvent = () => {
+        alert('created!');
+        history.push('./dashboard');
+    };
+
+    return (
+        <div className={classes.root}>
+            <img src={logo} alt="Logo" className={classes.logo} />
+            <div className={classes.card}>
+                <Typography className={classes.title}>
+                    Create an Event
+                </Typography>
+                <form onSubmit={handleCreateEvent}>
+                    <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Event Name"
+                            type="text"
+                            value={eventName}
+                            autoComplete="on"
+                            onChange={(e) => setEventName(e.target.value)}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Event Date"
+                            type="text"
+                            value={eventDate}
+                            autoComplete="on"
+                            onChange={(e) => setEventDate(e.target.value)}
+                        />
+                    </FormControl>
+                    {/* <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Location Preference (eg: Cafe,Park,Library...)"
+                            type="text"
+                            value={locationPref}
+                            autoComplete="on"
+                            onChange={(e) =>
+                                setLocationPref({
+                                    location: e.target.value,
+                                })
+                            }
+                        />
+                    </FormControl> */}
+                    <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Your Location"
+                            type="text"
+                            value={userLocation}
+                            autoComplete="on"
+                            onChange={(e) => setUserLocation(e.target.value)}
+                        />
+                    </FormControl>
+                    <FormControl fullWidth={true}>
+                        <input
+                            className={classes.input}
+                            placeholder="Description"
+                            type="text"
+                            value={description}
+                            autoComplete="on"
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </FormControl>
+                    <div className={classes.button}>
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            className={classes.submitButton}
+                        >
+                            Submit
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        height: '100vh',
+    },
+    logo: {
+        width: '200px',
+    },
+    card: {
+        borderRadius: '10px',
+        width: '40%',
+        margin: '5% auto 2% auto',
+        padding: '10px',
+        // background:
+        //     'linear-gradient(to right bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.1))',
+        background: 'rgba(255,255,255,0.1)',
+        backdropFilter: `blur(1px)`,
+        backgroundClip: 'border-box',
+    },
+    title: {
+        fontSize: 25,
+        textAlign: 'center',
+        marginTop: '2%',
+        color: '#FFF',
+    },
+    indicator: {
+        backgroundColor: 'white',
+    },
+    alert: {
+        margin: '2% auto',
+        width: '40%',
+    },
+    input: {
+        width: '60%',
+        margin: '3% auto',
+        padding: '3%',
+        border: 'none',
+        borderRadius: '10px',
+        '&:focus': {
+            outline: 'none',
+        },
+        background: 'rgba(255,255,255,0.15)',
+    },
+    '::placeholder': {
+        color: 'red',
+    },
+
+    button: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '3%',
+    },
+    submitButton: {
+        color: '#FFF',
+        fontWeight: 'bold',
+        borderRadius: '20px',
+        fontSize: '10px',
+        border: 'none',
+        background: '#f0f0f066',
+    },
+}));

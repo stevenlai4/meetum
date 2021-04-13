@@ -6,6 +6,7 @@ import GuardedRoute from './components/GuardedRoute';
 import { refreshAuthToken } from './userAuth';
 import useLocalStorage from 'react-use-localstorage';
 import { Redirect } from 'react-router-dom';
+import CreateEvent from './layouts/CreateEvent';
 
 export default function App() {
     const [isAuthenticated, setIsAuthenticated] = useLocalStorage(
@@ -40,6 +41,12 @@ export default function App() {
                     isAuthenticated={isAuthenticated}
                     setIsAuthenticated={setIsAuthenticated}
                     component={Dashboard}
+                />
+                <GuardedRoute
+                    path="/createEvent"
+                    isAuthenticated={isAuthenticated}
+                    setIsAuthenticated={setIsAuthenticated}
+                    component={CreateEvent}
                 />
             </Switch>
         </Router>
