@@ -166,16 +166,8 @@ export default function CreateEvent() {
 }
 
 const useStyles = makeStyles((theme) => ({
-    // select: {
-    //     '&:before': {
-    //         borderColor: 'rgba(255,255,255,0.1)',
-    //     },
-    //     '&:after': {
-    //         borderColor: 'black',
-    //     },
-    // },
-    root: {
-        // height: '100vh',
+    'input::placeholder': {
+        color: 'red',
     },
     logo: {
         width: '200px',

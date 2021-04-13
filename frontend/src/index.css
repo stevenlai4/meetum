@@ -16,6 +16,31 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* change input placeholder color to gray */
+input::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #a9a9a9;
+    opacity: 1; /* Firefox */
+}
+
+/* change textarea placeholder color to gray */
+textarea::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #a9a9a9;
+    opacity: 1; /* Firefox */
+}
+
+/* textcolor of select dropdown */
+select {
+    color: #a9a9a9;
+}
+option {
+    color: #000;
+}
+option:first-child {
+    color: #ccc;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
