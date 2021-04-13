@@ -7,7 +7,10 @@ const InvitationSchema = new mongoose.Schema({
     },
     users: [
         {
-            cognito_id: String,
+            _id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+            },
             is_going: {
                 type: Boolean,
                 default: false,
