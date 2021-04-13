@@ -52,4 +52,27 @@ module.exports = {
             throw Error(`Error while creating a new event: ${error}`);
         }
     },
+    // Get all user events by user id
+    async getAllEvents(req, res) {
+        const userAuth = jwt_decode(req.token);
+
+        try {
+            const user = await User.findOne({ cognito_id: userAuth.sub })
+                .populate('events')
+                .exec();
+
+            // Check if user exist
+            if (!user) {
+                return res.status(400).json({
+                    errMessage: 'User Not Found',
+                });
+            }
+
+            return res.status(200).json({
+                events: user.events,
+            });
+        } catch (error) {
+            throw Error(`Error while getting events: ${error}`);
+        }
+    },
 };
