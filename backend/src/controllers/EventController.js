@@ -16,6 +16,8 @@ module.exports = {
         } = req.body;
         const userAuth = jwt_decode(req.token);
 
+        const tempParticipants = [];
+
         // Check if the name and event date are filled
         if (
             !name ||
@@ -38,6 +40,21 @@ module.exports = {
                 });
             }
 
+            //Get user by email
+            for (let i = 0; i < participants.length; i++) {
+                const participant = await User.findOne({
+                    email: participants[i].trim(),
+                });
+                // check if participant exists
+                if (!participant) {
+                    return res.status(400).json({
+                        errMessage: 'Participant Not Found',
+                    });
+                }
+                //find the participant and push all valid participants to temp participants array
+                tempParticipants.push(participant);
+            }
+
             //Create a new event to mongodb
             const event = await Event.create({
                 name,
@@ -53,20 +70,11 @@ module.exports = {
                 ],
             });
 
-            //Get user by cognito id
-            for (let i = 0; i < participants.length; i++) {
-                const participant = await User.findOne({
-                    cognito_id: participants[i],
-                });
-                // check if participant exists
-                if (!participant) {
-                    return res.status(400).json({
-                        errMessage: 'Participant Not Found',
-                    });
-                }
+            //Get user by email
+            for (let i = 0; i < tempParticipants.length; i++) {
                 //create inviation
                 await Invitation.create({
-                    user_id: participant._id,
+                    user_id: tempParticipants[i]._id,
                     event_id: event._id,
                 });
             }
