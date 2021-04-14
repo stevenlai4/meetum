@@ -14,7 +14,6 @@ export default function CreateEvent() {
     const [userLocation, setUserLocation] = useState('');
     const [description, setDescription] = useState('');
     const [participantEmail_1, setParticipantEmail_1] = useState('');
-    const [participantEmail_2, setParticipantEmail_2] = useState('');
 
     //handle create event
     const handleCreateEvent = async (event) => {
@@ -23,12 +22,14 @@ export default function CreateEvent() {
             const response = await createEvent({
                 name: eventName,
                 date: eventDate,
-                description: description,
+                description,
                 address: userLocation,
+                locationPref,
             });
             alert(response.successMessage);
             history.push('./dashboard');
         } catch (error) {
+            alert(error.response.data.errMessage);
             console.error(error.response.data.errMessage);
         }
     };

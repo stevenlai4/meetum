@@ -39,12 +39,18 @@ export async function registerUser({ cognito_id, address, name }) {
 }
 
 // Create new event
-export const createEvent = async ({ name, date, description, address }) => {
+export const createEvent = async ({
+    name,
+    date,
+    description,
+    address,
+    locationPref,
+}) => {
     try {
         const token = await getToken();
         const response = await api.post(
             `/event`,
-            { name, date, description, address },
+            { name, date, description, address, locationPref },
             {
                 headers: { Authorization: `Bearer ${token}` },
             }
