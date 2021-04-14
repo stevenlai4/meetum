@@ -3,7 +3,7 @@ const User = require('../models/User');
 module.exports = {
     // Register a new user
     async registerUser(req, res) {
-        const { cognito_id, address, name } = req.body;
+        const { cognito_id, address, name, email } = req.body;
 
         // Check if the address input is filled or the default
         // checkout is checked
@@ -20,6 +20,7 @@ module.exports = {
                 // Create a new user to mongodb
                 await User.create({
                     cognito_id,
+                    email,
                     name,
                     address,
                     events: [],
