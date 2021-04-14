@@ -88,3 +88,22 @@ export const getAllEvents = async () => {
         throw error;
     }
 };
+
+// Get an event by the event id
+export const getEventById = async (event_id) => {
+    try {
+        const token = await getToken();
+        const response = await api.get(`/event/${event_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const event = response.data?.event;
+            return event;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
