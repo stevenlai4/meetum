@@ -57,3 +57,23 @@ export const createEvent = async ({ name, date, description, address }) => {
         throw error;
     }
 };
+
+// Get all user events
+export const getAllEvents = async () => {
+    try {
+        const token = await getToken();
+        const response = await api.get('/events', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const events = response.data?.events;
+
+            return events;
+        }
+    } catch (error) {
+        throw error;
+    }
+};

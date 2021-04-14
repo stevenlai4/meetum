@@ -5,12 +5,12 @@ const User = require('../models/User');
 module.exports = {
     // Create new event (address is from creator)
     async createEvent(req, res) {
-        const { name, date, description, address } = req.body;
+        const { name, date, description, address, locationPref } = req.body;
         const userAuth = jwt_decode(req.token);
 
         // Check if the name and event date are filled
-        if (!name || !date || !address) {
-            return res.status(400).json({
+        if (!name || !date || !address || !locationPref) {
+            return res.status(200).json({
                 errMessage: 'All fields must be filled',
             });
         }
@@ -29,6 +29,7 @@ module.exports = {
                 name,
                 date,
                 description,
+                locationPref,
                 users: [
                     {
                         address,
