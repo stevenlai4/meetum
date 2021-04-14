@@ -79,20 +79,38 @@ module.exports = {
     // Get an event by event id
     async getEventById(req, res) {
         const { event_id } = req.params;
+        const userAuth = jwt_decode(req.token);
 
         try {
-            const event = await Event.findById({ _id: event_id }).populate({
-                path: 'users._id',
-                select: 'name address -_id',
-            });
+            const event = await Event.findById({ _id: event_id })
+                .populate({
+                    path: 'users._id',
+                    select: 'name address -_id',
+                })
+                .exec();
 
+            // Check if the event exists
             if (event) {
-                return res.status(200).json({
-                    event,
+                const user = await User.findOne({
+                    $and: [
+                        { cognito_id: userAuth.sub },
+                        { events: { $in: [event_id] } },
+                    ],
                 });
+
+                // Check if the event belongs to the user
+                if (user) {
+                    return res.status(200).json({
+                        event,
+                    });
+                } else {
+                    return res.status(400).json({
+                        errMessage: 'Event not found',
+                    });
+                }
             } else {
                 return res.status(400).json({
-                    errMessage: 'Event not found',
+                    errMessage: 'Event does not exist',
                 });
             }
         } catch (error) {
