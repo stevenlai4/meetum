@@ -13,7 +13,7 @@ export default function CreateEvent() {
     const [locationPref, setLocationPref] = useState('');
     const [userLocation, setUserLocation] = useState('');
     const [description, setDescription] = useState('');
-    const [participantEmail_1, setParticipantEmail_1] = useState('');
+    const [participantEmail, setParticipantEmail] = useState('');
 
     //handle create event
     const handleCreateEvent = async (event) => {
@@ -80,26 +80,6 @@ export default function CreateEvent() {
                         <option value="restaurant">Restaurant</option>
                     </select>
                 </FormControl>
-                {/* <FormControl
-                    variant="outlined"
-                    fullWidth={true}
-                    className={classes.dropdown}
-                >
-                    <InputLabel>Location Preference</InputLabel>
-                    <Select
-                        id="locationPref"
-                        className={classes.select}
-                        value={locationPref}
-                        onChange={(e) => setLocationPref(e.target.value)}
-                        label="Location Preference"
-                    >
-                        <MenuItem value=""></MenuItem>
-                        <MenuItem value="cafe">Cafe</MenuItem>
-                        <MenuItem value="park">Park</MenuItem>
-                        <MenuItem value="library">Library</MenuItem>
-                        <MenuItem value="restaurant">Restaurant</MenuItem>
-                    </Select>
-                </FormControl> */}
                 <FormControl fullWidth={true}>
                     <input
                         className={classes.input}
@@ -122,15 +102,14 @@ export default function CreateEvent() {
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </FormControl>
-
                 <FormControl fullWidth={true}>
                     <input
                         className={classes.input}
                         placeholder="Participant Emai (eg: 1@meetum.com , 2@meetum.com)"
                         type="text"
-                        value={participantEmail_1}
+                        value={participantEmail}
                         autoComplete="on"
-                        onChange={(e) => setParticipantEmail_1(e.target.value)}
+                        onChange={(e) => setParticipantEmail(e.target.value)}
                     />
                 </FormControl>
                 <div className={classes.button}>

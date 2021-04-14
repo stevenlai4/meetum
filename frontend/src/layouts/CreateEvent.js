@@ -15,9 +15,19 @@ export default function Dashboard({ setIsAuthenticated }) {
         localStorage.clear();
         history.push('/');
     };
+
+    const logoClicked = () => {
+        history.push('/');
+    };
+
     return (
         <>
-            <img src={logo} alt="Logo" className={classes.logo} />
+            <img
+                src={logo}
+                alt="Logo"
+                className={classes.logo}
+                onClick={logoClicked}
+            />
             <Link className={classes.signOutText} onClick={signOut}>
                 Sign Out
             </Link>
