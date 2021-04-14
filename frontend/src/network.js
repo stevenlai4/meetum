@@ -25,12 +25,13 @@ const api = axios.create({
 });
 
 // Register a new user
-export async function registerUser({ cognito_id, address, name }) {
+export async function registerUser({ cognito_id, address, name, email }) {
     try {
         const response = await api.post('/user/register', {
             cognito_id,
             name,
             address,
+            email,
         });
         return response.data;
     } catch (error) {
@@ -45,12 +46,13 @@ export const createEvent = async ({
     description,
     address,
     locationPref,
+    participants,
 }) => {
     try {
         const token = await getToken();
         const response = await api.post(
             `/event`,
-            { name, date, description, address, locationPref },
+            { name, date, description, address, locationPref, participants },
             {
                 headers: { Authorization: `Bearer ${token}` },
             }

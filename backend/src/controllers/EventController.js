@@ -1,15 +1,31 @@
 const jwt_decode = require('jwt-decode');
 const Event = require('../models/Event');
 const User = require('../models/User');
+const Invitation = require('../models/Invitation');
 
 module.exports = {
     // Create new event (address is from creator)
     async createEvent(req, res) {
-        const { name, date, description, address, locationPref } = req.body;
+        const {
+            name,
+            date,
+            description,
+            address,
+            locationPref,
+            participants,
+        } = req.body;
         const userAuth = jwt_decode(req.token);
 
+        const tempParticipants = [];
+
         // Check if the name and event date are filled
-        if (!name || !date || !address || !locationPref) {
+        if (
+            !name ||
+            !date ||
+            !address ||
+            !locationPref ||
+            participants.length === 0
+        ) {
             return res.status(400).json({
                 errMessage: 'All fields must be filled',
             });
@@ -22,6 +38,21 @@ module.exports = {
                 return res.status(400).json({
                     errMessage: 'User Not Found',
                 });
+            }
+
+            //Get user by email
+            for (let i = 0; i < participants.length; i++) {
+                const participant = await User.findOne({
+                    email: participants[i].trim(),
+                });
+                // check if participant exists
+                if (!participant) {
+                    return res.status(400).json({
+                        errMessage: 'Participant Not Found',
+                    });
+                }
+                //find the participant and push all valid participants to temp participants array
+                tempParticipants.push(participant);
             }
 
             //Create a new event to mongodb
@@ -38,6 +69,15 @@ module.exports = {
                     },
                 ],
             });
+
+            //Get user by email
+            for (let i = 0; i < tempParticipants.length; i++) {
+                //create inviation
+                await Invitation.create({
+                    user_id: tempParticipants[i]._id,
+                    event_id: event._id,
+                });
+            }
 
             //Push event in events array of user (user.events)
             user.events.push(event);

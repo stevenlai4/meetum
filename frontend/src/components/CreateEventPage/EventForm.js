@@ -13,11 +13,15 @@ export default function CreateEvent() {
     const [locationPref, setLocationPref] = useState('');
     const [userLocation, setUserLocation] = useState('');
     const [description, setDescription] = useState('');
-    const [participantEmail, setParticipantEmail] = useState('');
+    const [participantEmails, setParticipantEmails] = useState('');
 
     //handle create event
     const handleCreateEvent = async (event) => {
         event.preventDefault();
+
+        //convert email string into array
+        const participants = participantEmails.split(',');
+
         try {
             const response = await createEvent({
                 name: eventName,
@@ -25,6 +29,7 @@ export default function CreateEvent() {
                 description,
                 address: userLocation,
                 locationPref,
+                participants,
             });
             alert(response.successMessage);
             history.push('./dashboard');
@@ -100,16 +105,16 @@ export default function CreateEvent() {
                         value={description}
                         autoComplete="on"
                         onChange={(e) => setDescription(e.target.value)}
-                    />
+                    ></textarea>
                 </FormControl>
                 <FormControl fullWidth={true}>
                     <input
                         className={classes.input}
                         placeholder="Participant Emai (eg: 1@meetum.com , 2@meetum.com)"
                         type="text"
-                        value={participantEmail}
+                        value={participantEmails}
                         autoComplete="on"
-                        onChange={(e) => setParticipantEmail(e.target.value)}
+                        onChange={(e) => setParticipantEmails(e.target.value)}
                     />
                 </FormControl>
                 <div className={classes.button}>

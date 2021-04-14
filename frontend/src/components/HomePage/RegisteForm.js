@@ -37,6 +37,7 @@ export default function RegisterForm({
                     cognito_id: userSub,
                     name: user.name,
                     address: user.address,
+                    email: user.email,
                 });
                 alert('Successfully Register, Please confirm email');
             }
