@@ -76,4 +76,27 @@ module.exports = {
             throw Error(`Error while getting events: ${error}`);
         }
     },
+    // Get an event by event id
+    async getEventById(req, res) {
+        const { event_id } = req.params;
+
+        try {
+            const event = await Event.findById({ _id: event_id }).populate({
+                path: 'users._id',
+                select: 'name address -_id',
+            });
+
+            if (event) {
+                return res.status(200).json({
+                    event,
+                });
+            } else {
+                return res.status(400).json({
+                    errMessage: 'Event not found',
+                });
+            }
+        } catch (error) {
+            throw Error(`Error while getting event: ${error}`);
+        }
+    },
 };
