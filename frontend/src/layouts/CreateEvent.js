@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import logo from '../images/meetum-logo.png';
 import EventForm from '../components/CreateEventPage/EventForm';
 
-export default function Dashboard({ setIsAuthenticated }) {
+export default function CreateEvent({ setIsAuthenticated }) {
     const classes = useStyles();
     const history = useHistory();
 
