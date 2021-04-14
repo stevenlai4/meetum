@@ -10,7 +10,7 @@ module.exports = {
 
         // Check if the name and event date are filled
         if (!name || !date || !address || !locationPref) {
-            return res.status(200).json({
+            return res.status(400).json({
                 errMessage: 'All fields must be filled',
             });
         }

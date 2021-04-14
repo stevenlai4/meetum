@@ -89,6 +89,8 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             outline: 'none',
         },
+        backgroundColor: 'rgba(255,255,255,0.3)',
+        color: '#FFF',
     },
     button: {
         display: 'flex',
