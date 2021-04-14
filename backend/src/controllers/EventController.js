@@ -35,7 +35,6 @@ module.exports = {
                         address,
                         _id: user._id,
                         role: 'Organiser',
-                        is_going: true,
                     },
                 ],
             });
