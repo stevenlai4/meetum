@@ -46,13 +46,19 @@ export default function Dashboard({ setIsAuthenticated }) {
                 Sign Out
             </Link>
             {/* getting all events */}
+            <div className={classes.textContainer}>
+                <h1 className={classes.text}>Events</h1>
+            </div>
             <div className="event-card-container">
                 {events.map((event, index) => (
                     <EventCard key={index} event={event} />
                 ))}
             </div>
             {/* getting all invitation */}
-            <div className="event-card-container">
+            <div className={classes.textContainer}>
+                <h1 className={classes.text}>Invitations</h1>
+            </div>
+            <div className="invitation-card-container">
                 {invitations.map((invitation, index) => (
                     <InvitationCard key={index} invitation={invitation} />
                 ))}
@@ -103,5 +109,13 @@ const useStyles = makeStyles((theme) => ({
             color: 'rgba(255,255,255,0.5)',
             transform: 'scale(1.2)',
         },
+    },
+    text: {
+        color: '#FFF',
+        // position: 'relative',
+        // margin: '20px auto',
+    },
+    textContainer: {
+        marginLeft: '9%',
     },
 }));
