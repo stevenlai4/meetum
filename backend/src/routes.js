@@ -23,4 +23,11 @@ routes.get(
     verifyToken,
     InvitationController.getInvitationsByUserId
 );
+//Response to invitation
+routes.post(
+    '/invitation/:invitation_id',
+    verifyToken,
+    InvitationController.invitationResponse
+);
+
 module.exports = routes;
