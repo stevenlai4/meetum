@@ -44,39 +44,33 @@ module.exports = {
             const { is_going, address } = req.body;
 
             //  Find invitation and update
-            const invitation = await Invitation.findOneAndUpdate(
-                {
-                    invitation_id,
-                },
-                { is_going }
+            const invitation = await Invitation.findByIdAndUpdate(
+                invitation_id,
+                { $set: { is_going } },
+                { new: true, useFindAndModify: false }
             );
 
-            //Check if invitation exist
-            // if (!invitation) {
-            //     return res.status(400).json({
-            //         errMessage: 'Invitation Not Found',
-            //     });
-            // }
-
             if (is_going === true) {
-                Event.findOneAndUpdate(
-                    { _id: invitation.event_id },
+                await Event.findByIdAndUpdate(
+                    invitation.event_id,
                     {
-                        users: [
-                            {
+                        $push: {
+                            users: {
                                 _id: invitation.user_id,
                                 address,
                                 role: 'Participant',
                             },
-                        ],
-                    }
+                        },
+                    },
+                    { useFindAndModify: false }
                 );
 
-                User.findOneAndUpdate(
+                await User.findOneAndUpdate(
                     { cognito_id: userAuth.sub },
                     {
                         events: invitation.event_id,
-                    }
+                    },
+                    { useFindAndModify: false }
                 );
 
                 return res.status(200).json({
