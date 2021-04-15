@@ -126,3 +126,66 @@ export const getInvitationsByEventId = async (event_id) => {
         throw error;
     }
 };
+
+/////////////////////////// Google Map API ///////////////////////////
+// Find the centroid
+export const findCoordinate = async (address) => {
+    try {
+        const response = await axios.get(
+            'https://maps.googleapis.com/maps/api/geocode/json',
+            {
+                params: {
+                    address,
+                    key: process.env.REACT_APP_GOOGLE_API,
+                },
+            }
+        );
+
+        if (response) {
+            const result = await response.data.results[0];
+            const geometry = await result.geometry;
+            const location = await geometry.location;
+
+            return location;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Find nearby locations from the centroid
+export const findNearbyPlaces = async ({ centroid, locationPref }) => {
+    try {
+        const response = await axios.get(
+            'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+            {
+                params: {
+                    location: `${centroid.lat}, ${centroid.lng}`,
+                    rankby: 'distance',
+                    type: locationPref,
+                    key: process.env.REACT_APP_GOOGLE_API,
+                },
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
+            }
+        );
+
+        if (response) {
+            const results = await response.data.results;
+
+            // Check if the returned array has 10 or more items
+            // If yes then only get top 10 locations
+            if (results.length >= 10) {
+                const slicedResult = results.slice(9);
+
+                return slicedResult;
+            }
+
+            // Else return the entire array
+            return results;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
