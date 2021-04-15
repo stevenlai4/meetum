@@ -14,6 +14,7 @@ export default function EventDetail() {
     const { event_id } = useParams();
     const [event, setEvent] = useState({});
     const [centroid, setCentroid] = useState({});
+    const [nearbys, setNearbys] = useState([]);
 
     // CDM
     useEffect(() => {
@@ -27,7 +28,7 @@ export default function EventDetail() {
                     setCentroid({ lat, lng });
                 }
             } catch (error) {
-                console.error(error.response.data.errMessage);
+                console.error(error);
             }
         })();
     }, [event_id]);
@@ -41,7 +42,12 @@ export default function EventDetail() {
             </div>
             <div className={classes.rightContainer}>
                 {centroid.lat && centroid.lng ? (
-                    <GoogleApiWrapper event={event} centroid={centroid} />
+                    <GoogleApiWrapper
+                        event={event}
+                        centroid={centroid}
+                        setNearbys={setNearbys}
+                        nearbys={nearbys}
+                    />
                 ) : (
                     <CircularProgress
                         className={classes.loading}

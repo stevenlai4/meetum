@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { findNearbyPlaces } from '../../network';
 
-export function GoogleMap({ event, centroid }) {
+export function GoogleMap({ event, centroid, setNearbys, nearbys }) {
     const classes = useStyles();
-    const [locations, setLocations] = useState([]);
 
     const findPlaces = async () => {
+        let slicedArr = [];
+
         try {
             const places = await findNearbyPlaces({
                 centroid,
                 locationPref: event.locationPref,
             });
 
-            setLocations(places);
+            // Get only first ten nearest locations if possible
+            if (places.length >= 10) {
+                for (let i = 0; i < 10; i++) {
+                    slicedArr.push(places[i]);
+                }
+
+                setNearbys(slicedArr);
+            } else {
+                setNearbys(places);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -32,7 +42,18 @@ export function GoogleMap({ event, centroid }) {
             }}
             onReady={findPlaces}
         >
-            {console.log(locations)}
+            {nearbys.map((nearby) => {
+                return (
+                    <Marker
+                        title={nearby.name}
+                        name={nearby.name}
+                        position={{
+                            lat: nearby.geometry?.location?.lat,
+                            lng: nearby.geometry?.location?.lng,
+                        }}
+                    />
+                );
+            })}
         </Map>
     );
 }

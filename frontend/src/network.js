@@ -155,34 +155,25 @@ export const findCoordinate = async (address) => {
 
 // Find nearby locations from the centroid
 export const findNearbyPlaces = async ({ centroid, locationPref }) => {
+    const token = await getToken();
+
     try {
-        const response = await axios.get(
-            'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
-            {
-                params: {
-                    location: `${centroid.lat}, ${centroid.lng}`,
-                    rankby: 'distance',
-                    type: locationPref,
-                    key: process.env.REACT_APP_GOOGLE_API,
-                },
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                },
-            }
-        );
+        const response = await api.get('/google/nearby', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                lat: centroid.lat,
+                lng: centroid.lng,
+                locationPref,
+            },
+        });
+
+        // console.log(`response.data: ${JSON.stringify(response.data)}`);
 
         if (response) {
-            const results = await response.data.results;
+            const results = await response.data.locations;
 
-            // Check if the returned array has 10 or more items
-            // If yes then only get top 10 locations
-            if (results.length >= 10) {
-                const slicedResult = results.slice(9);
-
-                return slicedResult;
-            }
-
-            // Else return the entire array
             return results;
         }
     } catch (error) {

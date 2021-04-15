@@ -19,7 +19,7 @@ export default function InvitationCard({ event_id }) {
                 console.error(error.response.data.errMessage);
             }
         })();
-    }, []);
+    }, [event_id]);
 
     return (
         <Card className={classes.root}>

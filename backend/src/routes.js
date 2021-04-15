@@ -4,6 +4,7 @@ const verifyToken = require('./config/verifyToken');
 const UserController = require('./controllers/UserController');
 const EventController = require('./controllers/EventController');
 const InvitationController = require('./controllers/InvitationController');
+const GoogleMapController = require('./controllers/GoogleMapController');
 
 /////////////////////// User ///////////////////////
 // Register user
@@ -23,6 +24,14 @@ routes.get(
     '/:event_id/invitations',
     verifyToken,
     InvitationController.getInvitationsByEventId
+);
+
+/////////////////////// Google Map API ///////////////////////
+// Get nearby locations
+routes.get(
+    '/google/nearby',
+    verifyToken,
+    GoogleMapController.getNearbyLocations
 );
 
 module.exports = routes;
