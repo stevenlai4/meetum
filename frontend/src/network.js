@@ -16,7 +16,10 @@ const getToken = async () => {
 
 // Config axios
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL:
+        process.env.NODE_ENV !== 'production'
+            ? 'http://localhost:8080'
+            : ' https://meetum-backend.herokuapp.com',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

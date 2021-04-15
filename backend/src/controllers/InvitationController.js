@@ -85,4 +85,41 @@ module.exports = {
             console.log(e);
         }
     },
+    // Get all event invitations by event id
+    async getInvitationsByEventId(req, res) {
+        const userAuth = jwt_decode(req.token);
+        const { event_id } = req.params;
+
+        try {
+            const user = await User.findOne({ cognito_id: userAuth.sub });
+
+            // Check if user exist
+            if (!user) {
+                return res.status(400).json({
+                    errMessage: 'User Not Found',
+                });
+            }
+
+            const event = await Event.findById(event_id);
+
+            if (!event) {
+                return res.status(400).json({
+                    errMessage: 'Event Not Found',
+                });
+            }
+
+            const invitations = await Invitation.find({
+                event_id: event._id,
+                is_going: null,
+            })
+                .populate('user_id')
+                .exec();
+
+            return res.status(200).json({
+                invitations,
+            });
+        } catch (error) {
+            throw Error(`Error while getting invitation: ${error}`);
+        }
+    },
 };

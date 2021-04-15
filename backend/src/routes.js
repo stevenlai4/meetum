@@ -30,4 +30,12 @@ routes.post(
     InvitationController.invitationResponse
 );
 
+/////////////////////// Invitation ///////////////////////
+// Get invitations by event id
+routes.get(
+    '/:event_id/invitations',
+    verifyToken,
+    InvitationController.getInvitationsByEventId
+);
+
 module.exports = routes;
