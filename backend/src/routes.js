@@ -25,7 +25,7 @@ routes.get(
 );
 //Response to invitation
 routes.post(
-    '/invitation/:invitation_id',
+    '/invitation',
     verifyToken,
     InvitationController.invitationResponse
 );

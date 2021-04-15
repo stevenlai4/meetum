@@ -38,10 +38,8 @@ module.exports = {
         try {
             const userAuth = jwt_decode(req.token);
 
-            const { invitation_id } = req.params;
-
             // get data from body
-            const { is_going, address } = req.body;
+            const { is_going, address, invitation_id } = req.body;
 
             //  update user response , if they are going or not
             const invitation = await Invitation.findByIdAndUpdate(
@@ -70,7 +68,7 @@ module.exports = {
                 await User.findOneAndUpdate(
                     { cognito_id: userAuth.sub },
                     {
-                        events: invitation.event_id,
+                        $push: { events: invitation.event_id },
                     },
                     { useFindAndModify: false }
                 );

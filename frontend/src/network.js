@@ -81,7 +81,6 @@ export const getAllEvents = async () => {
 
         if (response) {
             const events = response.data?.events;
-            console.log(events);
             return events;
         }
     } catch (error) {
@@ -102,6 +101,26 @@ export const getAllInvitations = async () => {
         if (response) {
             const invitations = response.data?.invitations;
             return invitations;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// reponse invitation
+export const reponseInvitation = async ({ is_going, invitation_id }) => {
+    try {
+        const token = await getToken();
+        const response = await api.post(
+            '/invitation',
+            { is_going, invitation_id },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        if (response) {
+            return response.data;
         }
     } catch (error) {
         throw error;

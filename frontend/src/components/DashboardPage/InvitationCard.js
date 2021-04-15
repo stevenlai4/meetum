@@ -1,17 +1,48 @@
-import { Card, Typography, Button, Input } from '@material-ui/core';
-import React from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Card, Typography, Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import { green, red } from '@material-ui/core/colors';
+import { reponseInvitation } from '../../network';
 
 export default function InvitationCard({ invitation }) {
     const classes = useStyles();
-    const history = useHistory();
+
+    const [address, setAddress] = useState('');
 
     const handleCardOnClick = () => {
         alert('see more');
         // history.push(`/invitation/${invitation._id}`);
+    };
+
+    //handle Accept Invitation
+    const handleAcceptInvitation = async (event) => {
+        // event.preventDefault();
+
+        try {
+            const response = await reponseInvitation({
+                is_going: true,
+                address,
+                invitation_id: invitation._id,
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    //handle decline invitation
+    const handleDeclineInvitation = async (event) => {
+        // event.preventDefault();
+
+        try {
+            const response = await reponseInvitation({
+                is_going: false,
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error.response.data.errMessage);
+        }
     };
 
     return (
@@ -41,14 +72,20 @@ export default function InvitationCard({ invitation }) {
                         className={classes.input}
                         placeholder="Add your location"
                         type="text"
-                        // value={participantEmails}
+                        value={address}
                         autoComplete="on"
-                        // onChange={(e) => setParticipantEmails(e.target.value)}
+                        onChange={(e) => setAddress(e.target.value)}
                     ></input>
-                    <AcceptButton> Accept</AcceptButton>
+                    <AcceptButton
+                        onClick={() => handleAcceptInvitation({ address })}
+                    >
+                        Accept
+                    </AcceptButton>
                 </div>
                 <div className={classes.declineContainer}>
-                    <DeclineButton>Decline</DeclineButton>
+                    <DeclineButton onClick={handleDeclineInvitation}>
+                        Decline
+                    </DeclineButton>
                 </div>
             </div>
         </Card>
