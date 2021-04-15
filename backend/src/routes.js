@@ -3,6 +3,7 @@ const routes = express.Router();
 const verifyToken = require('./config/verifyToken');
 const UserController = require('./controllers/UserController');
 const EventController = require('./controllers/EventController');
+const InvitationController = require('./controllers/InvitationController');
 
 /////////////////////// User ///////////////////////
 // Register user
@@ -15,5 +16,13 @@ routes.post('/event', verifyToken, EventController.createEvent);
 routes.get('/events', verifyToken, EventController.getAllEvents);
 // Get an event by event id
 routes.get('/event/:event_id', verifyToken, EventController.getEventById);
+
+/////////////////////// Invitation ///////////////////////
+// Get invitations by event id
+routes.get(
+    '/:event_id/invitations',
+    verifyToken,
+    InvitationController.getInvitationsByEventId
+);
 
 module.exports = routes;
