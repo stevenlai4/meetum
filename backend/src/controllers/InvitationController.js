@@ -43,13 +43,14 @@ module.exports = {
             // get data from body
             const { is_going, address } = req.body;
 
-            //  Find invitation and update
+            //  update user response , if they are going or not
             const invitation = await Invitation.findByIdAndUpdate(
                 invitation_id,
                 { $set: { is_going } },
                 { new: true, useFindAndModify: false }
             );
 
+            // add user to event.users array if they accept invitation
             if (is_going === true) {
                 await Event.findByIdAndUpdate(
                     invitation.event_id,
@@ -65,6 +66,7 @@ module.exports = {
                     { useFindAndModify: false }
                 );
 
+                // add event to user.events array if they accept invitation
                 await User.findOneAndUpdate(
                     { cognito_id: userAuth.sub },
                     {
