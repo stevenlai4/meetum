@@ -81,8 +81,27 @@ export const getAllEvents = async () => {
 
         if (response) {
             const events = response.data?.events;
-
+            console.log(events);
             return events;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Get all user invitations
+export const getAllInvitations = async () => {
+    try {
+        const token = await getToken();
+        const response = await api.get('/invitations', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const invitations = response.data?.invitations;
+            return invitations;
         }
     } catch (error) {
         throw error;

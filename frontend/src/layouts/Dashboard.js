@@ -3,21 +3,26 @@ import { useHistory } from 'react-router-dom';
 import { Link, IconButton, Tooltip, Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AddCircle } from '@material-ui/icons';
-import { getAllEvents } from '../network';
+import { getAllEvents, getAllInvitations } from '../network';
 import logo from '../images/meetum-logo.png';
 import EventCard from '../components/DashboardPage/EventCard';
+import InvitationCard from '../components/DashboardPage/InvitationCard';
 
 export default function Dashboard({ setIsAuthenticated }) {
     const classes = useStyles();
     const history = useHistory();
     const [events, setEvents] = useState([]);
+    const [invitations, setInvitations] = useState([]);
 
     useEffect(() => {
         (async () => {
             const response = await getAllEvents();
-
+            const invitationResponse = await getAllInvitations();
             if (response) {
                 setEvents(response);
+            }
+            if (invitationResponse) {
+                setInvitations(invitationResponse);
             }
         })();
     }, []);
@@ -40,9 +45,16 @@ export default function Dashboard({ setIsAuthenticated }) {
             <Link className={classes.signOutText} onClick={signOut}>
                 Sign Out
             </Link>
+            {/* getting all events */}
             <div className="event-card-container">
                 {events.map((event, index) => (
                     <EventCard key={index} event={event} />
+                ))}
+            </div>
+            {/* getting all invitation */}
+            <div className="event-card-container">
+                {invitations.map((invitation, index) => (
+                    <InvitationCard key={index} invitation={invitation} />
                 ))}
             </div>
             <Tooltip
