@@ -124,7 +124,7 @@ module.exports = {
             const event = await Event.findById({ _id: event_id })
                 .populate({
                     path: 'users._id',
-                    select: 'name email address -_id',
+                    select: 'name email address',
                 })
                 .exec();
 

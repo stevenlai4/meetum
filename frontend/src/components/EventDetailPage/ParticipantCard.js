@@ -11,7 +11,10 @@ export default function ParticipantCard({ event }) {
             <CardContent className={classes.cardContent}>
                 {event.users?.map((user) => {
                     return (
-                        <div className={classes.participant}>
+                        <div
+                            className={classes.participant}
+                            key={user._id?._id}
+                        >
                             <Typography className={classes.name}>
                                 {user._id.name}
                             </Typography>
@@ -41,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     participant: {
         display: 'flex',
+        flexWrap: 'wrap',
         justifyContent: 'space-around',
         padding: 10,
         borderBottom: '1px solid rgba(255,255,255, 0.2)',

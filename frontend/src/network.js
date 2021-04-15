@@ -107,3 +107,22 @@ export const getEventById = async (event_id) => {
         throw error;
     }
 };
+
+// Get all invitations by event id
+export const getInvitationsByEventId = async (event_id) => {
+    try {
+        const token = await getToken();
+        const response = await api.get(`/${event_id}/invitations`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const invitations = response.data?.invitations;
+            return invitations;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
