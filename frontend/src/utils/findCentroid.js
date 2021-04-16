@@ -10,8 +10,8 @@ const findCentroid = async (users) => {
         for (let i = 0; i < usersArrLen; i++) {
             const response = await findCoordinate(users[i].address);
 
-            lat_sum += response.lat;
-            lng_sum += response.lng;
+            lat_sum += response?.lat;
+            lng_sum += response?.lng;
         }
 
         const result = {
