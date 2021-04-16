@@ -17,6 +17,12 @@ routes.post('/event', verifyToken, EventController.createEvent);
 routes.get('/events', verifyToken, EventController.getAllEvents);
 // Get an event by event id
 routes.get('/event/:event_id', verifyToken, EventController.getEventById);
+// Update an event location
+routes.post(
+    '/update_location/:event_id',
+    verifyToken,
+    EventController.updateEventLocation
+);
 
 /////////////////////// Invitation ///////////////////////
 // Get invitations by event id
