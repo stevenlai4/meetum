@@ -5,7 +5,8 @@ const EventSchema = new mongoose.Schema({
     date: Date,
     description: String,
     locationPref: String,
-    location: { type: String, default: '' },
+    location_name: { type: String, default: '' },
+    location_address: { type: String, default: '' },
     users: [
         {
             _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

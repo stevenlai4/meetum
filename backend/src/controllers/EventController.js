@@ -166,7 +166,7 @@ module.exports = {
     // Update event location
     async updateEventLocation(req, res) {
         const { event_id } = req.params;
-        const { location } = req.body;
+        const { location_address, location_name } = req.body;
         const userAuth = jwt_decode(req.token);
 
         try {
@@ -182,7 +182,8 @@ module.exports = {
                 event_id,
                 {
                     $set: {
-                        location,
+                        location_address,
+                        location_name,
                     },
                 },
                 { new: true, useFindAndModify: false }
