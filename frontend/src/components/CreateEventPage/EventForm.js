@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { Button, Typography, TextField, FormControl } from '@material-ui/core';
+import {
+    Button,
+    Typography,
+    TextField,
+    FormControl,
+    Checkbox,
+} from '@material-ui/core';
 import { createEvent } from '../../network';
 
-export default function CreateEvent() {
+export default function EventForm({ user }) {
     const classes = useStyles();
     const history = useHistory();
 
@@ -15,10 +21,11 @@ export default function CreateEvent() {
     const [description, setDescription] = useState('');
     const [participantEmails, setParticipantEmails] = useState('');
 
+    const [isChecked, setIsChecked] = useState(false);
+
     //handle create event
     const handleCreateEvent = async (event) => {
         event.preventDefault();
-
         //convert email string into array
         const participants = participantEmails.split(',');
 
@@ -27,7 +34,7 @@ export default function CreateEvent() {
                 name: eventName,
                 date: eventDate,
                 description,
-                address: userLocation,
+                address: isChecked ? user.address : userLocation,
                 locationPref,
                 participants,
             });
@@ -38,7 +45,6 @@ export default function CreateEvent() {
             console.error(error.response.data.errMessage);
         }
     };
-
     return (
         <div className={classes.card}>
             <Typography className={classes.title}>Create an Event</Typography>
@@ -95,6 +101,27 @@ export default function CreateEvent() {
                         onChange={(e) => setUserLocation(e.target.value)}
                     />
                 </FormControl>
+                <div className={classes.addressOptionContainer}>
+                    <div>
+                        <Typography
+                            className={classes.addresstext}
+                            component="p"
+                        >
+                            Default Address
+                        </Typography>
+                    </div>
+                    <div>
+                        <Checkbox
+                            inputProps={{
+                                'aria-label': 'uncontrolled-checkbox',
+                            }}
+                            onChange={() => setIsChecked(!isChecked)}
+                            style={{
+                                color: '#FFF',
+                            }}
+                        />
+                    </div>
+                </div>
                 <FormControl fullWidth={true}>
                     <textarea
                         className={classes.input}
@@ -157,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             outline: 'none',
         },
-        background: 'rgba(255,255,255,0.15)',
+        background: 'rgba(0,0,0,0.4)',
         color: 'white',
     },
     input: {
@@ -170,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             outline: 'none',
         },
-        background: 'rgba(255,255,255,0.15)',
+        background: 'rgba(0,0,0,0.4)',
         color: '#FFF',
     },
     timepicker: {
@@ -182,12 +209,19 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         margin: '3%',
     },
+    addresstext: { color: '#FFF' },
     submitButton: {
         color: '#FFF',
         fontWeight: 'bold',
         borderRadius: '20px',
         fontSize: '10px',
         border: 'none',
-        background: '#f0f0f066',
+        background: 'rgba(0,0,0,0.4)',
+    },
+    addressOptionContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginRight: '8%',
     },
 }));

@@ -68,7 +68,6 @@ export async function refreshAuthToken(setIsAuthenticated) {
                     if (err) {
                         console.error(err);
                     }
-                    console.log('session', session);
                     setIsAuthenticated(true);
                 }
             );

@@ -51,6 +51,13 @@ module.exports = {
                         errMessage: 'Participant Not Found',
                     });
                 }
+
+                //check if user self invited
+                if (participant.email === user.email) {
+                    return res.status(400).json({
+                        errMessage: 'You cannot invite yourself to the event',
+                    });
+                }
                 //find the participant and push all valid participants to temp participants array
                 tempParticipants.push(participant);
             }

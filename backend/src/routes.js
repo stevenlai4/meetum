@@ -6,6 +6,8 @@ const EventController = require('./controllers/EventController');
 const InvitationController = require('./controllers/InvitationController');
 
 /////////////////////// User ///////////////////////
+//get user
+routes.get('/user', verifyToken, UserController.getUser);
 // Register user
 routes.post('/user/register', UserController.registerUser);
 
@@ -16,6 +18,19 @@ routes.post('/event', verifyToken, EventController.createEvent);
 routes.get('/events', verifyToken, EventController.getAllEvents);
 // Get an event by event id
 routes.get('/event/:event_id', verifyToken, EventController.getEventById);
+/////////////////////// Invitation ///////////////////////
+// Get all invitations by user id
+routes.get(
+    '/invitations',
+    verifyToken,
+    InvitationController.getInvitationsByUserId
+);
+//Response to invitation
+routes.post(
+    '/invitation',
+    verifyToken,
+    InvitationController.invitationResponse
+);
 
 /////////////////////// Invitation ///////////////////////
 // Get invitations by event id

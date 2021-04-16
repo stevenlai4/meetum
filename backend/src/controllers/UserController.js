@@ -1,6 +1,29 @@
+const jwt_decode = require('jwt-decode');
 const User = require('../models/User');
 
 module.exports = {
+    //Get user data
+    async getUser(req, res) {
+        const userAuth = jwt_decode(req.token);
+
+        try {
+            const user = await User.findOne({ cognito_id: userAuth.sub });
+
+            // Check if user exist
+            if (!user) {
+                return res.status(400).json({
+                    errMessage: 'User Not Found',
+                });
+            }
+
+            return res.status(200).json({
+                user,
+            });
+        } catch (error) {
+            throw Error(`Error while getting events: ${error}`);
+        }
+    },
+
     // Register a new user
     async registerUser(req, res) {
         const { cognito_id, address, name, email } = req.body;
