@@ -30,27 +30,27 @@ export default function CreateEvent({ user }) {
         const participants = participantEmails.split(',');
 
         try {
-            if (isChecked === true) {
-                const response = await createEvent({
-                    name: eventName,
-                    date: eventDate,
-                    description,
-                    address: user.address,
-                    locationPref,
-                    participants,
-                });
-                alert(response.successMessage);
-            } else {
-                const response = await createEvent({
-                    name: eventName,
-                    date: eventDate,
-                    description,
-                    address: userLocation,
-                    locationPref,
-                    participants,
-                });
-                alert(response.successMessage);
-            }
+            // if (isChecked === true) {
+            const response = await createEvent({
+                name: eventName,
+                date: eventDate,
+                description,
+                address: isChecked ? user.address : userLocation,
+                locationPref,
+                participants,
+            });
+            alert(response.successMessage);
+            // } else {
+            //     const response = await createEvent({
+            //         name: eventName,
+            //         date: eventDate,
+            //         description,
+            //         address: userLocation,
+            //         locationPref,
+            //         participants,
+            //     });
+            //     alert(response.successMessage);
+            // }
             history.push('./dashboard');
         } catch (error) {
             alert(error.response.data.errMessage);
@@ -119,7 +119,7 @@ export default function CreateEvent({ user }) {
                             className={classes.addresstext}
                             component="p"
                         >
-                            default Address
+                            Default Address
                         </Typography>
                     </div>
                     <div>
