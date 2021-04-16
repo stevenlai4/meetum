@@ -27,6 +27,24 @@ const api = axios.create({
     },
 });
 
+// get user
+export const getUser = async () => {
+    try {
+        const token = await getToken();
+        const response = await api.get('/user', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (response) {
+            const user = response.data?.user;
+            return user;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Register a new user
 export async function registerUser({ cognito_id, address, name, email }) {
     try {
@@ -64,6 +82,7 @@ export const createEvent = async ({
         if (response) {
             return response.data;
         }
+        console.log(response);
     } catch (error) {
         throw error;
     }

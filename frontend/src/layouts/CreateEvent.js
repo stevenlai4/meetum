@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import logo from '../images/meetum-logo.png';
 import EventForm from '../components/CreateEventPage/EventForm';
+import { getUser } from '../network';
 
 export default function CreateEvent({ setIsAuthenticated }) {
     const classes = useStyles();
     const history = useHistory();
+    const [user, setUser] = useState('');
+
+    //get user info
+    useEffect(() => {
+        (async () => {
+            const response = await getUser();
+            if (response) {
+                setUser(response);
+            }
+        })();
+    }, []);
 
     //handle sign out
     const signOut = () => {
@@ -31,7 +43,7 @@ export default function CreateEvent({ setIsAuthenticated }) {
             <Link className={classes.signOutText} onClick={signOut}>
                 Sign Out
             </Link>
-            <EventForm />
+            <EventForm user={user} />
         </>
     );
 }

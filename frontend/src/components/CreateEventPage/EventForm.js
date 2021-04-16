@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { createEvent } from '../../network';
 
-export default function CreateEvent() {
+export default function CreateEvent({ user }) {
     const classes = useStyles();
     const history = useHistory();
 
@@ -35,7 +35,7 @@ export default function CreateEvent() {
                     name: eventName,
                     date: eventDate,
                     description,
-                    address: userLocation,
+                    address: user.address,
                     locationPref,
                     participants,
                 });
@@ -57,10 +57,8 @@ export default function CreateEvent() {
             console.error(error.response.data.errMessage);
         }
     };
-
     return (
         <div className={classes.card}>
-            {console.log(isChecked)}
             <Typography className={classes.title}>Create an Event</Typography>
             <form onSubmit={handleCreateEvent}>
                 <FormControl fullWidth={true}>
