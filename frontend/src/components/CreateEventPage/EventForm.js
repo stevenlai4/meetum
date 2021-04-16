@@ -40,17 +40,6 @@ export default function CreateEvent({ user }) {
                 participants,
             });
             alert(response.successMessage);
-            // } else {
-            //     const response = await createEvent({
-            //         name: eventName,
-            //         date: eventDate,
-            //         description,
-            //         address: userLocation,
-            //         locationPref,
-            //         participants,
-            //     });
-            //     alert(response.successMessage);
-            // }
             history.push('./dashboard');
         } catch (error) {
             alert(error.response.data.errMessage);
