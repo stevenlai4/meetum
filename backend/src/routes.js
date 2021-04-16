@@ -7,6 +7,8 @@ const InvitationController = require('./controllers/InvitationController');
 const GoogleMapController = require('./controllers/GoogleMapController');
 
 /////////////////////// User ///////////////////////
+//get user
+routes.get('/user', verifyToken, UserController.getUser);
 // Register user
 routes.post('/user/register', UserController.registerUser);
 
@@ -22,6 +24,20 @@ routes.post(
     '/update_location/:event_id',
     verifyToken,
     EventController.updateEventLocation
+);
+
+/////////////////////// Invitation ///////////////////////
+// Get all invitations by user id
+routes.get(
+    '/invitations',
+    verifyToken,
+    InvitationController.getInvitationsByUserId
+);
+//Response to invitation
+routes.post(
+    '/invitation',
+    verifyToken,
+    InvitationController.invitationResponse
 );
 
 /////////////////////// Invitation ///////////////////////

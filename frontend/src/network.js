@@ -27,6 +27,25 @@ const api = axios.create({
     },
 });
 
+/////////////////////////// User ///////////////////////////
+// get user
+export const getUser = async () => {
+    try {
+        const token = await getToken();
+        const response = await api.get('/user', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (response) {
+            const user = response.data?.user;
+            return user;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Register a new user
 export async function registerUser({ cognito_id, address, name, email }) {
     try {
@@ -42,6 +61,7 @@ export async function registerUser({ cognito_id, address, name, email }) {
     }
 }
 
+/////////////////////////// Event ///////////////////////////
 // Create new event
 export const createEvent = async ({
     name,
@@ -64,6 +84,7 @@ export const createEvent = async ({
         if (response) {
             return response.data;
         }
+        console.log(response);
     } catch (error) {
         throw error;
     }
@@ -81,7 +102,6 @@ export const getAllEvents = async () => {
 
         if (response) {
             const events = response.data?.events;
-
             return events;
         }
     } catch (error) {
@@ -108,6 +128,7 @@ export const getEventById = async (event_id) => {
     }
 };
 
+/////////////////////////// Invitation ///////////////////////////
 // Get all invitations by event id
 export const getInvitationsByEventId = async (event_id) => {
     try {
@@ -121,6 +142,47 @@ export const getInvitationsByEventId = async (event_id) => {
         if (response) {
             const invitations = response.data?.invitations;
             return invitations;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Get all user invitations
+export const getAllInvitations = async () => {
+    try {
+        const token = await getToken();
+        const response = await api.get('/invitations', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (response) {
+            const invitations = response.data?.invitations;
+            return invitations;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Response invitation
+export const reponseInvitation = async ({
+    address,
+    is_going,
+    invitation_id,
+}) => {
+    try {
+        const token = await getToken();
+        const response = await api.post(
+            '/invitation',
+            { is_going, invitation_id, address },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+        if (response) {
+            return response.data;
         }
     } catch (error) {
         throw error;
