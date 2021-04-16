@@ -203,8 +203,6 @@ export const findCoordinate = async (address) => {
             }
         );
 
-        console.log(response.data);
-
         if (
             response &&
             response.data &&
@@ -262,6 +260,25 @@ export const getLocationPhoto = async ({ photo_reference }) => {
 
         if (response) {
             return response.data?.photo_url;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Get location detail by place_id
+export const getLocationDetailById = async ({ place_id }) => {
+    const token = await getToken();
+
+    try {
+        const response = await api.get(`/google/location/${place_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            return response.data?.location_detail;
         }
     } catch (error) {
         throw error;

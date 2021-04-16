@@ -1,61 +1,74 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Card,
-    CardContent,
-    Typography,
-    CardMedia,
-    CardActionArea,
-} from '@material-ui/core';
+import { Card, CardContent, Typography, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { getLocationPhoto } from '../../network';
+import { getLocationDetailById, getLocationPhoto } from '../../network';
 import StarRatings from 'react-star-ratings';
 
 export default function LocationCard({ nearby }) {
     const classes = useStyles();
     const [photoUrl, setPhotoUrl] = useState('');
+    const [detail, setDetail] = useState({});
 
     useEffect(() => {
         (async () => {
             try {
-                if (nearby.photos && nearby.photos.length > 0) {
-                    const response = await getLocationPhoto({
-                        photo_reference: nearby.photos[0]?.photo_reference,
+                // Find location detail by place_id
+                const locationDetailRes = await getLocationDetailById({
+                    place_id: nearby.place_id,
+                });
+
+                if (locationDetailRes) {
+                    setDetail(locationDetailRes);
+                }
+
+                // Fetch location photo
+                if (
+                    locationDetailRes.photos &&
+                    locationDetailRes.photos.length > 0
+                ) {
+                    const photoRes = await getLocationPhoto({
+                        photo_reference:
+                            locationDetailRes.photos[0]?.photo_reference,
                     });
 
-                    setPhotoUrl(response);
+                    setPhotoUrl(photoRes);
                 }
             } catch (error) {
                 console.error(error);
             }
         })();
-    }, [nearby.photos]);
+    }, [nearby.place_id]);
 
     return (
         <Card className={classes.root}>
-            <CardActionArea>
-                <CardContent className={classes.cardContent}>
-                    <CardMedia
-                        className={classes.image}
-                        component="img"
-                        alt={nearby.name}
-                        image={photoUrl || 'https://i.imgur.com/Whefbkg.png'}
+            <CardContent className={classes.cardContent}>
+                <CardMedia
+                    className={classes.image}
+                    component="img"
+                    alt={detail.name}
+                    image={photoUrl || 'https://i.imgur.com/Whefbkg.png'}
+                />
+                <div className={classes.detailContainer}>
+                    <Typography className={classes.name} variant="h5">
+                        {detail.name}
+                    </Typography>
+                    <StarRatings
+                        rating={detail.rating}
+                        starRatedColor="#FF9529"
+                        starDimension="20px"
+                        starSpacing="3px"
                     />
-                    <div className={classes.detailContainer}>
-                        <Typography className={classes.name} variant="h5">
-                            {nearby.name}
-                        </Typography>
-                        <StarRatings
-                            rating={nearby.rating}
-                            starRatedColor="#FF9529"
-                            starDimension="20px"
-                            starSpacing="3px"
-                        />
-                        <span className={classes.userRatingTotal}>{`(${
-                            nearby.user_ratings_total || 0
-                        })`}</span>
-                    </div>
-                </CardContent>
-            </CardActionArea>
+                    <span className={classes.userRatingTotal}>{`(${
+                        detail.user_ratings_total || 0
+                    })`}</span>
+                    <Typography className={classes.text} component="p">
+                        {detail.formatted_phone_number}
+                    </Typography>
+                    <Typography className={classes.text} component="p">
+                        {detail.formatted_address}
+                    </Typography>
+                </div>
+            </CardContent>
         </Card>
     );
 }
@@ -79,9 +92,16 @@ const useStyles = makeStyles((theme) => ({
     },
     name: {
         marginBottom: 10,
+        textTransform: 'capitalize',
     },
     userRatingTotal: {
         marginLeft: 10,
+        fontSize: 15,
+    },
+    text: {
+        margin: '10px 0',
+    },
+    hour: {
         fontSize: 15,
     },
 }));

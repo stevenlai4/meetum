@@ -55,6 +55,13 @@ routes.get(
     verifyToken,
     GoogleMapController.getNearbyLocations
 );
+// Get location detail by place_id
+routes.get(
+    '/google/location/:place_id',
+    verifyToken,
+    GoogleMapController.getLocationDetail
+);
+
 // Get location photo
 routes.get(
     '/google/location_photo',

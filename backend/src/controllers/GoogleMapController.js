@@ -31,4 +31,20 @@ module.exports = {
             throw Error(`Error while getting location photo: ${error}`);
         }
     },
+    async getLocationDetail(req, res) {
+        const { place_id } = req.params;
+
+        try {
+            const response = await fetch(
+                `https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.GOOGLE_API}`
+            );
+            const data = await response.json();
+
+            if (response) {
+                return res.status(200).json({ location_detail: data.result });
+            }
+        } catch (error) {
+            throw Error(`Error while getting location detail: ${error}`);
+        }
+    },
 };
