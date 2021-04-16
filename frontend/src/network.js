@@ -203,10 +203,15 @@ export const findCoordinate = async (address) => {
             }
         );
 
-        if (response) {
-            const result = await response.data.results[0];
-            const geometry = await result.geometry;
-            const location = await geometry.location;
+        console.log(response.data);
+
+        if (
+            response &&
+            response.data &&
+            response.data.results &&
+            response.data.results.length > 0
+        ) {
+            const location = response.data.results[0]?.geometry?.location;
 
             return location;
         }
@@ -218,8 +223,6 @@ export const findCoordinate = async (address) => {
 // Find nearby locations from the centroid
 export const findNearbyPlaces = async ({ centroid, locationPref }) => {
     const token = await getToken();
-
-    console.log(locationPref);
 
     try {
         const response = await api.get('/google/nearby', {
@@ -234,7 +237,7 @@ export const findNearbyPlaces = async ({ centroid, locationPref }) => {
         });
 
         if (response) {
-            const results = await response.data.locations;
+            const results = response.data?.locations;
 
             return results;
         }
