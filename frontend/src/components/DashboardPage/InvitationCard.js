@@ -58,6 +58,9 @@ export default function InvitationCard({ invitation, setRerender }) {
                 <Moment className={classes.date} format="hh:mm:ss">
                     {invitation?.event_id?.date}
                 </Moment>
+                <Typography className={classes.name} component="p">
+                    Organiser : {invitation?.event_id?.users[0]?._id?.name}
+                </Typography>
                 <div className={classes.createdOnContainer}>
                     <Typography className={classes.createdOnText} component="p">
                         Create On:

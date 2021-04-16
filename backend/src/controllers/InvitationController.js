@@ -22,7 +22,10 @@ module.exports = {
                 user_id: user._id,
                 is_going: null,
             })
-                .populate('event_id')
+                .populate({
+                    path: 'event_id',
+                    populate: { path: 'users._id', select: 'name' },
+                })
                 .exec();
 
             return res.status(200).json({
