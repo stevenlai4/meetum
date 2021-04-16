@@ -9,7 +9,6 @@ export default function InvitationCard({ invitation, setRerender }) {
     const classes = useStyles();
 
     const [address, setAddress] = useState('');
-    // const [is_going, setIs_going] = useState(null);
 
     //handle Accept Invitation
     const handleAcceptInvitation = async (e) => {

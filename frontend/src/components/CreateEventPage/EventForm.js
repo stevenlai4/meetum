@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { Button, Typography, TextField, FormControl } from '@material-ui/core';
+import {
+    Button,
+    Typography,
+    TextField,
+    FormControl,
+    Checkbox,
+} from '@material-ui/core';
 import { createEvent } from '../../network';
 
 export default function CreateEvent() {
@@ -15,23 +21,36 @@ export default function CreateEvent() {
     const [description, setDescription] = useState('');
     const [participantEmails, setParticipantEmails] = useState('');
 
+    const [isChecked, setIsChecked] = useState(false);
+
     //handle create event
     const handleCreateEvent = async (event) => {
         event.preventDefault();
-
         //convert email string into array
         const participants = participantEmails.split(',');
 
         try {
-            const response = await createEvent({
-                name: eventName,
-                date: eventDate,
-                description,
-                address: userLocation,
-                locationPref,
-                participants,
-            });
-            alert(response.successMessage);
+            if (isChecked === true) {
+                const response = await createEvent({
+                    name: eventName,
+                    date: eventDate,
+                    description,
+                    address: userLocation,
+                    locationPref,
+                    participants,
+                });
+                alert(response.successMessage);
+            } else {
+                const response = await createEvent({
+                    name: eventName,
+                    date: eventDate,
+                    description,
+                    address: userLocation,
+                    locationPref,
+                    participants,
+                });
+                alert(response.successMessage);
+            }
             history.push('./dashboard');
         } catch (error) {
             alert(error.response.data.errMessage);
@@ -41,6 +60,7 @@ export default function CreateEvent() {
 
     return (
         <div className={classes.card}>
+            {console.log(isChecked)}
             <Typography className={classes.title}>Create an Event</Typography>
             <form onSubmit={handleCreateEvent}>
                 <FormControl fullWidth={true}>
@@ -95,6 +115,27 @@ export default function CreateEvent() {
                         onChange={(e) => setUserLocation(e.target.value)}
                     />
                 </FormControl>
+                <div className={classes.addressOptionContainer}>
+                    <div>
+                        <Typography
+                            className={classes.addresstext}
+                            component="p"
+                        >
+                            default Address
+                        </Typography>
+                    </div>
+                    <div>
+                        <Checkbox
+                            inputProps={{
+                                'aria-label': 'uncontrolled-checkbox',
+                            }}
+                            onChange={() => setIsChecked(!isChecked)}
+                            style={{
+                                color: '#000000',
+                            }}
+                        />
+                    </div>
+                </div>
                 <FormControl fullWidth={true}>
                     <textarea
                         className={classes.input}
@@ -182,6 +223,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         margin: '3%',
     },
+    addresstext: { color: '#FFF' },
     submitButton: {
         color: '#FFF',
         fontWeight: 'bold',
@@ -189,5 +231,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '10px',
         border: 'none',
         background: '#f0f0f066',
+    },
+    addressOptionContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        marginRight: '8%',
     },
 }));

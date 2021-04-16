@@ -6,6 +6,8 @@ const EventController = require('./controllers/EventController');
 const InvitationController = require('./controllers/InvitationController');
 
 /////////////////////// User ///////////////////////
+//get user
+routes.get('/user', verifyToken, UserController.getUser);
 // Register user
 routes.post('/user/register', UserController.registerUser);
 
