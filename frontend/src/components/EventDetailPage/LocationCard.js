@@ -23,8 +23,8 @@ export default function LocationCard({ nearby }) {
 
                 // Fetch location photo
                 if (
-                    locationDetailRes.photos &&
-                    locationDetailRes.photos.length > 0
+                    locationDetailRes?.photos &&
+                    locationDetailRes?.photos.length > 0
                 ) {
                     const photoRes = await getLocationPhoto({
                         photo_reference:
