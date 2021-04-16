@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             outline: 'none',
         },
-        backgroundColor: 'rgba(255,255,255,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.4)',
         color: '#FFF',
     },
     button: {
@@ -105,6 +105,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '10px',
         margin: '3%',
         border: 'none',
-        background: '#f0f0f066',
+        backgroundColor: 'rgba(0,0,0,0.4)',
     },
 }));

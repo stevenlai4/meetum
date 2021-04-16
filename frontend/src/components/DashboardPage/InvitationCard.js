@@ -3,7 +3,12 @@ import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import { green, red } from '@material-ui/core/colors';
-import { reponseInvitation, findNearbyPlaces } from '../../network';
+import {
+    reponseInvitation,
+    findNearbyPlaces,
+    getLocationDetailById,
+    updateEventLocation,
+} from '../../network';
 import findCentroid from '../../utils/findCentroid';
 
 export default function InvitationCard({ invitation, setRerender }) {
@@ -27,13 +32,28 @@ export default function InvitationCard({ invitation, setRerender }) {
                         centroid: { lat, lng },
                         locationPref: response.event?.locationPref,
                     });
+
+                    if (nearbys && nearbys.length > 0) {
+                        const nearbyId = nearbys[0].place_id;
+                        const locationDetail = await getLocationDetailById({
+                            place_id: nearbyId,
+                        });
+
+                        if (locationDetail) {
+                            await updateEventLocation({
+                                location_name: locationDetail.name,
+                                location_address:
+                                    locationDetail.formatted_address,
+                                event_id: response.event?._id,
+                            });
+                        }
+                    }
                 }
                 setAddress('');
                 setRerender((prev) => !prev);
             }
             alert(response.successMessage);
         } catch (error) {
-            // alert(error.response.data.errMessage);
             console.error(error);
         }
     };
