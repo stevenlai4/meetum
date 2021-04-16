@@ -128,10 +128,10 @@ module.exports = {
         const userAuth = jwt_decode(req.token);
 
         try {
-            const event = await Event.findById({ _id: event_id })
+            const event = await Event.findById(event_id)
                 .populate({
                     path: 'users._id',
-                    select: 'name address -_id',
+                    select: 'name email address',
                 })
                 .exec();
 
@@ -161,6 +161,40 @@ module.exports = {
             }
         } catch (error) {
             throw Error(`Error while getting event: ${error}`);
+        }
+    },
+    // Update event location
+    async updateEventLocation(req, res) {
+        const { event_id } = req.params;
+        const { location } = req.body;
+        const userAuth = jwt_decode(req.token);
+
+        try {
+            const user = await User.findOne({ cognito_id: userAuth.sub });
+
+            if (!user) {
+                return res.status(400).json({
+                    errMessage: 'User Not Found',
+                });
+            }
+
+            const event = await Event.findByIdAndUpdate(
+                event_id,
+                {
+                    $set: {
+                        location,
+                    },
+                },
+                { new: true, useFindAndModify: false }
+            );
+
+            if (event) {
+                return res
+                    .status(200)
+                    .json({ successMessage: 'Location updated successfully' });
+            }
+        } catch (error) {
+            throw Error(`Error while updating the event location: ${error}`);
         }
     },
 };

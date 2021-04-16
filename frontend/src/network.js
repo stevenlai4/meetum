@@ -27,6 +27,7 @@ const api = axios.create({
     },
 });
 
+/////////////////////////// User ///////////////////////////
 // get user
 export const getUser = async () => {
     try {
@@ -60,6 +61,7 @@ export async function registerUser({ cognito_id, address, name, email }) {
     }
 }
 
+/////////////////////////// Event ///////////////////////////
 // Create new event
 export const createEvent = async ({
     name,
@@ -107,6 +109,45 @@ export const getAllEvents = async () => {
     }
 };
 
+// Get an event by the event id
+export const getEventById = async (event_id) => {
+    try {
+        const token = await getToken();
+        const response = await api.get(`/event/${event_id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const event = response.data?.event;
+            return event;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+/////////////////////////// Invitation ///////////////////////////
+// Get all invitations by event id
+export const getInvitationsByEventId = async (event_id) => {
+    try {
+        const token = await getToken();
+        const response = await api.get(`/${event_id}/invitations`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (response) {
+            const invitations = response.data?.invitations;
+            return invitations;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Get all user invitations
 export const getAllInvitations = async () => {
     try {
@@ -116,7 +157,6 @@ export const getAllInvitations = async () => {
                 Authorization: `Bearer ${token}`,
             },
         });
-
         if (response) {
             const invitations = response.data?.invitations;
             return invitations;
@@ -141,9 +181,84 @@ export const reponseInvitation = async ({
                 headers: { Authorization: `Bearer ${token}` },
             }
         );
-
         if (response) {
             return response.data;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+/////////////////////////// Google Map API ///////////////////////////
+// Find the centroid
+export const findCoordinate = async (address) => {
+    try {
+        const response = await axios.get(
+            'https://maps.googleapis.com/maps/api/geocode/json',
+            {
+                params: {
+                    address,
+                    key: process.env.REACT_APP_GOOGLE_API,
+                },
+            }
+        );
+
+        if (response) {
+            const result = await response.data.results[0];
+            const geometry = await result.geometry;
+            const location = await geometry.location;
+
+            return location;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Find nearby locations from the centroid
+export const findNearbyPlaces = async ({ centroid, locationPref }) => {
+    const token = await getToken();
+
+    console.log(locationPref);
+
+    try {
+        const response = await api.get('/google/nearby', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                lat: centroid.lat,
+                lng: centroid.lng,
+                locationPref,
+            },
+        });
+
+        if (response) {
+            const results = await response.data.locations;
+
+            return results;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Get location photo
+export const getLocationPhoto = async ({ photo_reference }) => {
+    const token = await getToken();
+
+    try {
+        const response = await api.get('/google/location_photo', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                photoreference: photo_reference,
+            },
+        });
+
+        if (response) {
+            return response.data?.photo_url;
         }
     } catch (error) {
         throw error;

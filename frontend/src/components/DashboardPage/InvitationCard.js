@@ -19,6 +19,7 @@ export default function InvitationCard({ invitation, setRerender }) {
                 invitation_id: invitation?._id,
             });
             if (response.successMessage) {
+                setAddress('');
                 setRerender((prev) => !prev);
             }
             alert(response.successMessage);
@@ -36,6 +37,7 @@ export default function InvitationCard({ invitation, setRerender }) {
                 invitation_id: invitation._id,
             });
             if (response.successMessage) {
+                setAddress('');
                 setRerender((prev) => !prev);
             }
             alert(response.successMessage);

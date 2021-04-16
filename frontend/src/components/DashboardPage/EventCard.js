@@ -20,7 +20,7 @@ export default function EventCard({ event }) {
             <Moment className={classes.date} format="YYYY/MM/DD">
                 {event.date}
             </Moment>
-            <Moment className={classes.date} format="hh:mm:ss">
+            <Moment className={classes.date} format="hh:mm">
                 {event.date}
             </Moment>
             <div className={classes.createdOnContainer}>

@@ -35,7 +35,6 @@ module.exports = {
             throw Error(`Error while getting invitation: ${error}`);
         }
     },
-
     //response To Invitation
     async invitationResponse(req, res) {
         try {
@@ -45,7 +44,7 @@ module.exports = {
             const { is_going, address, invitation_id } = req.body;
 
             // Check if user enter address if they accept invitation
-            if (is_going === true && !address) {
+            if (is_going && !address) {
                 return res.status(400).json({
                     errMessage: 'Please enter your location!',
                 });
@@ -59,7 +58,7 @@ module.exports = {
             );
 
             // add user to event.users array if they accept invitation
-            if (is_going === true) {
+            if (is_going) {
                 await Event.findByIdAndUpdate(
                     invitation.event_id,
                     {

@@ -85,10 +85,10 @@ export default function EventForm({ user }) {
                         <option value="" disabled>
                             Location Preference
                         </option>
-                        <option value="cafe">Cafe</option>
-                        <option value="park">Park</option>
-                        <option value="library">Library</option>
-                        <option value="restaurant">Restaurant</option>
+                        <option value="Cafe">Cafe</option>
+                        <option value="Park">Park</option>
+                        <option value="Library">Library</option>
+                        <option value="Restaurant">Restaurant</option>
                     </select>
                 </FormControl>
                 <FormControl fullWidth={true}>
