@@ -126,13 +126,12 @@ export const getAllInvitations = async () => {
     }
 };
 
-// reponse invitation
+// Response invitation
 export const reponseInvitation = async ({
     address,
     is_going,
     invitation_id,
 }) => {
-    console.log(address, is_going, invitation_id);
     try {
         const token = await getToken();
         const response = await api.post(

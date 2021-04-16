@@ -1,5 +1,5 @@
 import { Card, Typography, Button } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import { green, red } from '@material-ui/core/colors';
@@ -115,15 +115,15 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
         width: '60%',
-        // marginLeft: '20px',
-        padding: '3%',
         border: 'none',
         borderRadius: '10px',
         '&:focus': {
             outline: 'none',
         },
-        background: 'rgba(255,255,255,0.2)',
-        color: 'black',
+        background: 'rgba(0,0,0,0.3)',
+        color: '#FFF',
+        marginRight: '10px',
+        paddingLeft: '10px',
     },
     name: {
         textTransform: 'capitalize',
@@ -144,9 +144,13 @@ const useStyles = makeStyles((theme) => ({
         left: 10,
     },
     buttonContainer: {
-        width: '40%',
+        width: '50%',
     },
-    acceptContainer: { display: 'flex' },
+    acceptContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        width: '100%',
+    },
     declineContainer: { display: 'flex', justifyContent: 'flex-end' },
     createdOnText: {
         fontSize: 12,
@@ -162,20 +166,18 @@ const DeclineButton = withStyles((theme) => ({
             backgroundColor: red[700],
         },
         marginTop: '20px',
-        width: '37%',
+        width: '30%',
     },
 }))(Button);
 
 //style for accept button
 const AcceptButton = withStyles((theme) => ({
     root: {
-        color: theme.palette.getContrastText(green[500]),
         backgroundColor: green[500],
         '&:hover': {
             backgroundColor: green[700],
         },
-        marginLeft: '10px',
         color: '#FFF',
-        width: '40%',
+        width: '30%',
     },
 }))(Button);

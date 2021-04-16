@@ -117,8 +117,6 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         color: '#FFF',
-        // position: 'relative',
-        // margin: '20px auto',
     },
     textContainer: {
         marginLeft: '9%',

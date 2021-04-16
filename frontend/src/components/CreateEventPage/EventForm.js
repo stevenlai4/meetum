@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { createEvent } from '../../network';
 
-export default function CreateEvent({ user }) {
+export default function EventForm({ user }) {
     const classes = useStyles();
     const history = useHistory();
 
@@ -30,7 +30,6 @@ export default function CreateEvent({ user }) {
         const participants = participantEmails.split(',');
 
         try {
-            // if (isChecked === true) {
             const response = await createEvent({
                 name: eventName,
                 date: eventDate,
@@ -118,7 +117,7 @@ export default function CreateEvent({ user }) {
                             }}
                             onChange={() => setIsChecked(!isChecked)}
                             style={{
-                                color: '#000000',
+                                color: '#FFF',
                             }}
                         />
                     </div>
@@ -185,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             outline: 'none',
         },
-        background: 'rgba(255,255,255,0.15)',
+        background: 'rgba(0,0,0,0.4)',
         color: 'white',
     },
     input: {
@@ -198,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             outline: 'none',
         },
-        background: 'rgba(255,255,255,0.15)',
+        background: 'rgba(0,0,0,0.4)',
         color: '#FFF',
     },
     timepicker: {
@@ -217,7 +216,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '20px',
         fontSize: '10px',
         border: 'none',
-        background: '#f0f0f066',
+        background: 'rgba(0,0,0,0.4)',
     },
     addressOptionContainer: {
         display: 'flex',
