@@ -5,43 +5,44 @@ import Moment from 'react-moment';
 import { green, red } from '@material-ui/core/colors';
 import { reponseInvitation } from '../../network';
 
-export default function InvitationCard({ invitation }) {
+export default function InvitationCard({ invitation, setRerender }) {
     const classes = useStyles();
 
     const [address, setAddress] = useState('');
-
-    const handleCardOnClick = () => {
-        alert('see more');
-        // history.push(`/invitation/${invitation._id}`);
-    };
+    // const [is_going, setIs_going] = useState(null);
 
     //handle Accept Invitation
-    const handleAcceptInvitation = async (event) => {
-        // event.preventDefault();
-
+    const handleAcceptInvitation = async (e) => {
         try {
             const response = await reponseInvitation({
                 is_going: true,
                 address,
-                invitation_id: invitation._id,
+                invitation_id: invitation?._id,
             });
-            console.log(response);
+            if (response.successMessage) {
+                setRerender((prev) => !prev);
+            }
+            alert(response.successMessage);
         } catch (error) {
-            console.error(error);
+            alert(error.response.data.errMessage);
+            console.error(error.response);
         }
     };
 
     //handle decline invitation
-    const handleDeclineInvitation = async (event) => {
-        // event.preventDefault();
-
+    const handleDeclineInvitation = async (e) => {
         try {
             const response = await reponseInvitation({
                 is_going: false,
+                invitation_id: invitation._id,
             });
-            console.log(response);
+            if (response.successMessage) {
+                setRerender((prev) => !prev);
+            }
+            alert(response.successMessage);
         } catch (error) {
-            console.error(error.response.data.errMessage);
+            alert(error.response.data.errMessage);
+            console.error(error.response);
         }
     };
 
@@ -77,13 +78,19 @@ export default function InvitationCard({ invitation }) {
                         onChange={(e) => setAddress(e.target.value)}
                     ></input>
                     <AcceptButton
-                        onClick={() => handleAcceptInvitation({ address })}
+                        onClick={() =>
+                            handleAcceptInvitation({ address, is_going: true })
+                        }
                     >
                         Accept
                     </AcceptButton>
                 </div>
                 <div className={classes.declineContainer}>
-                    <DeclineButton onClick={handleDeclineInvitation}>
+                    <DeclineButton
+                        onClick={() =>
+                            handleDeclineInvitation({ is_going: false })
+                        }
+                    >
                         Decline
                     </DeclineButton>
                 </div>

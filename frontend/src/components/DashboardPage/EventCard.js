@@ -26,7 +26,7 @@ export default function EventCard({ event }) {
             <div className={classes.createdOnContainer}>
                 <Typography className={classes.createdOnText} component="p">
                     Create On:
-                </Typography>{' '}
+                </Typography>
                 <Moment className={classes.createdOnText}>
                     {event.createdOn}
                 </Moment>

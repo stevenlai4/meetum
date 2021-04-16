@@ -13,6 +13,7 @@ export default function Dashboard({ setIsAuthenticated }) {
     const history = useHistory();
     const [events, setEvents] = useState([]);
     const [invitations, setInvitations] = useState([]);
+    const [rerender, setRerender] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -25,7 +26,7 @@ export default function Dashboard({ setIsAuthenticated }) {
                 setInvitations(invitationResponse);
             }
         })();
-    }, []);
+    }, [rerender]);
 
     //handle sign out
     const signOut = () => {
@@ -60,7 +61,11 @@ export default function Dashboard({ setIsAuthenticated }) {
             </div>
             <div className="invitation-card-container">
                 {invitations.map((invitation, index) => (
-                    <InvitationCard key={index} invitation={invitation} />
+                    <InvitationCard
+                        key={index}
+                        invitation={invitation}
+                        setRerender={setRerender}
+                    />
                 ))}
             </div>
             <Tooltip

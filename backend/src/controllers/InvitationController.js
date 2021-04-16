@@ -41,6 +41,13 @@ module.exports = {
             // get data from body
             const { is_going, address, invitation_id } = req.body;
 
+            // Check if user enter address if they accept invitation
+            if (is_going === true && !address) {
+                return res.status(400).json({
+                    errMessage: 'Please enter your location!',
+                });
+            }
+
             //  update user response , if they are going or not
             const invitation = await Invitation.findByIdAndUpdate(
                 invitation_id,
