@@ -128,6 +128,31 @@ export const getEventById = async (event_id) => {
     }
 };
 
+// Update event location
+export const updateEventLocation = async ({
+    location_name,
+    location_address,
+    event_id,
+}) => {
+    try {
+        const token = await getToken();
+        const response = await api.post(
+            `/update_location/${event_id}`,
+            { location_name, location_address },
+            {
+                headers: { Authorization: `Bearer ${token}` },
+            }
+        );
+
+        if (response) {
+            return response.data;
+        }
+        console.log(response);
+    } catch (error) {
+        throw error;
+    }
+};
+
 /////////////////////////// Invitation ///////////////////////////
 // Get all invitations by event id
 export const getInvitationsByEventId = async (event_id) => {
