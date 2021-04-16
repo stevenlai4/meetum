@@ -26,7 +26,10 @@ export default function DetailCard({ event }) {
                     {event.date}
                 </Moment>
                 <Typography className={classes.text} component="p">
-                    {event.location}
+                    {event.location_name}
+                </Typography>
+                <Typography className={classes.text} component="p">
+                    {event.location_address}
                 </Typography>
                 <Typography className={classes.text} component="p">
                     {event.locationPref}
