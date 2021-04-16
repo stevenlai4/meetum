@@ -53,7 +53,7 @@ export function GoogleMap({ event, centroid, setNearbys, nearbys }) {
         <Map
             google={window.google}
             initialCenter={centroid}
-            zoom={14}
+            zoom={13}
             style={{
                 width: '75%',
                 maxHeight: '100%',
