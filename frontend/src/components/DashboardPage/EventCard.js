@@ -32,7 +32,10 @@ export default function EventCard({ event }) {
                 </Moment>
             </div>
             <Typography className={classes.location} component="p">
-                {event.location}
+                {event.location_name}
+            </Typography>
+            <Typography className={classes.location} component="p">
+                {event.location_address}
             </Typography>
         </Card>
     );
