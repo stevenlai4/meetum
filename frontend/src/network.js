@@ -219,6 +219,8 @@ export const findCoordinate = async (address) => {
 export const findNearbyPlaces = async ({ centroid, locationPref }) => {
     const token = await getToken();
 
+    console.log(locationPref);
+
     try {
         const response = await api.get('/google/nearby', {
             headers: {
@@ -230,8 +232,6 @@ export const findNearbyPlaces = async ({ centroid, locationPref }) => {
                 locationPref,
             },
         });
-
-        // console.log(`response.data: ${JSON.stringify(response.data)}`);
 
         if (response) {
             const results = await response.data.locations;

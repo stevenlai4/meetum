@@ -6,7 +6,9 @@ module.exports = {
 
         try {
             const response = await fetch(
-                `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&rankby=distance&type=${locationPref}&key=${process.env.GOOGLE_API}`
+                `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&rankby=distance&type=${locationPref.toLowerCase()}&key=${
+                    process.env.GOOGLE_API
+                }`
             );
             const data = await response.json();
 
