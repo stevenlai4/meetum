@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 import { green, red } from '@material-ui/core/colors';
-import { reponseInvitation } from '../../network';
+import { reponseInvitation, findNearbyPlaces } from '../../network';
+import findCentroid from '../../utils/findCentroid';
 
 export default function InvitationCard({ invitation, setRerender }) {
     const classes = useStyles();
@@ -18,14 +19,22 @@ export default function InvitationCard({ invitation, setRerender }) {
                 address,
                 invitation_id: invitation?._id,
             });
+
             if (response.successMessage) {
+                const { lat, lng } = await findCentroid(response.event?.users);
+                if (lat && lng) {
+                    const nearbys = await findNearbyPlaces({
+                        centroid: { lat, lng },
+                        locationPref: response.event?.locationPref,
+                    });
+                }
                 setAddress('');
                 setRerender((prev) => !prev);
             }
             alert(response.successMessage);
         } catch (error) {
-            alert(error.response.data.errMessage);
-            console.error(error.response);
+            // alert(error.response.data.errMessage);
+            console.error(error);
         }
     };
 

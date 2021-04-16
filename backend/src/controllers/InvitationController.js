@@ -59,7 +59,7 @@ module.exports = {
 
             // add user to event.users array if they accept invitation
             if (is_going) {
-                await Event.findByIdAndUpdate(
+                const event = await Event.findByIdAndUpdate(
                     invitation.event_id,
                     {
                         $push: {
@@ -70,7 +70,7 @@ module.exports = {
                             },
                         },
                     },
-                    { useFindAndModify: false }
+                    { new: true, useFindAndModify: false }
                 );
 
                 // add event to user.events array if they accept invitation
@@ -83,6 +83,7 @@ module.exports = {
                 );
 
                 return res.status(200).json({
+                    event,
                     successMessage: `You have accepted event successfully`,
                 });
             } else {

@@ -202,9 +202,7 @@ export const findCoordinate = async (address) => {
                 },
             }
         );
-
-        console.log(response.data);
-
+        console.log(process.env.REACT_APP_GOOGLE_API);
         if (
             response &&
             response.data &&
