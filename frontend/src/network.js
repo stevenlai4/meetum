@@ -180,3 +180,25 @@ export const findNearbyPlaces = async ({ centroid, locationPref }) => {
         throw error;
     }
 };
+
+// Get location photo
+export const getLocationPhoto = async ({ photo_reference }) => {
+    const token = await getToken();
+
+    try {
+        const response = await api.get('/google/location_photo', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            params: {
+                photoreference: photo_reference,
+            },
+        });
+
+        if (response) {
+            return response.data?.photo_url;
+        }
+    } catch (error) {
+        throw error;
+    }
+};

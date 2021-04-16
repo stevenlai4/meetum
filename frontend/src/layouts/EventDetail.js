@@ -8,6 +8,7 @@ import InvitationCard from '../components/EventDetailPage/InvitationCard';
 import GoogleApiWrapper from '../components/EventDetailPage/GoogleMap';
 import findCentroid from '../utils/findCentroid';
 import { CircularProgress } from '@material-ui/core';
+import Locations from '../components/EventDetailPage/Locations';
 
 export default function EventDetail() {
     const classes = useStyles();
@@ -41,13 +42,21 @@ export default function EventDetail() {
                 <InvitationCard event_id={event_id} />
             </div>
             <div className={classes.rightContainer}>
+                {/*Render google map*/}
                 {centroid.lat && centroid.lng ? (
-                    <GoogleApiWrapper
-                        event={event}
-                        centroid={centroid}
-                        setNearbys={setNearbys}
-                        nearbys={nearbys}
-                    />
+                    <>
+                        <div className={classes.mapContainer}>
+                            <GoogleApiWrapper
+                                event={event}
+                                centroid={centroid}
+                                setNearbys={setNearbys}
+                                nearbys={nearbys}
+                            />
+                        </div>
+                        {nearbys.length > 0 ? (
+                            <Locations nearbys={nearbys} />
+                        ) : null}
+                    </>
                 ) : (
                     <CircularProgress
                         className={classes.loading}
@@ -69,6 +78,9 @@ const useStyles = makeStyles((theme) => ({
     },
     rightContainer: {
         width: '75%',
+    },
+    mapContainer: {
+        height: '60vh',
         position: 'relative',
     },
     loading: {

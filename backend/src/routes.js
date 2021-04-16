@@ -39,5 +39,11 @@ routes.get(
     verifyToken,
     GoogleMapController.getNearbyLocations
 );
+// Get location photo
+routes.get(
+    '/google/location_photo',
+    verifyToken,
+    GoogleMapController.getLocationPhoto
+);
 
 module.exports = routes;

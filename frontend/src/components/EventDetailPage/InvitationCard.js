@@ -50,13 +50,18 @@ const useStyles = makeStyles((theme) => ({
         margin: '30px auto',
         backgroundColor: 'rgba(225,255,255,0.2)',
         borderRadius: 10,
-        height: 350,
     },
     cardHeader: {
         backgroundColor: 'rgba(225,255,255,0.3)',
     },
     cardContent: {
         overflowY: 'auto',
+        height: 300,
+        '-ms-overflow-style': 'none' /* Hide scrollbar in IE and Edge */,
+        'scrollbar-width': 'none' /* Hide scrollbar in Firefox */,
+        '&::-webkit-scrollbar': {
+            display: 'none' /* Hide scrollbar in Chrome, Safari and Oper */,
+        },
     },
     invitation: {
         display: 'flex',

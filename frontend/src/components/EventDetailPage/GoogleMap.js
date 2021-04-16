@@ -55,8 +55,8 @@ export function GoogleMap({ event, centroid, setNearbys, nearbys }) {
             initialCenter={centroid}
             zoom={14}
             style={{
-                width: '70%',
-                height: '50%',
+                width: '75%',
+                maxHeight: '100%',
                 margin: '30px auto',
             }}
             onReady={findPlaces}
@@ -74,9 +74,9 @@ export function GoogleMap({ event, centroid, setNearbys, nearbys }) {
                                 lng: nearby.geometry?.location?.lng,
                             }}
                             icon={{
-                                url: 'https://i.imgur.com/HXhQVOo.png',
+                                url: 'https://i.imgur.com/uBMMl0l.png',
                                 anchor: new window.google.maps.Point(32, 32),
-                                scaledSize: new window.google.maps.Size(40, 40),
+                                scaledSize: new window.google.maps.Size(45, 45),
                             }}
                             onClick={onMarkerClick}
                         />
@@ -84,7 +84,7 @@ export function GoogleMap({ event, centroid, setNearbys, nearbys }) {
                 } else {
                     return (
                         <Marker
-                            key={index}
+                            key={nearby.place_id}
                             title={nearby.name}
                             name={nearby.name}
                             position={{
